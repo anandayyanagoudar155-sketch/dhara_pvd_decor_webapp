@@ -1,0 +1,76 @@
+<mat-toolbar class="mat-elevation-z8">
+  <button
+    mat-icon-button
+    (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav?.opened">menu</mat-icon>
+    <mat-icon *ngIf="sidenav?.opened">close</mat-icon>
+  </button>
+
+  <span class="toolbar-title">{{ UserCompanyName + ' ' +'(' + UserFinYearName + ')'}}</span>
+
+<span class="spacer"></span> <!-- pushes button to right -->
+<button mat-raised-button class="sharp-material-button" color="accent" (click)="Logout()">
+    Logout
+  </button>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" mode="side" [opened]="false" class="mat-elevation-z8">
+    <img
+      class="avatar mat-elevation-z8"
+      src="assets/img4.jpg"
+    />
+    <h4 class="name">{{UserName}}</h4>
+    <p class="designation">{{UserRole}}</p>
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/usergrid">
+      <mat-icon>people</mat-icon>
+      <span>Users</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/userdetailgrid">
+      <mat-icon>person</mat-icon>
+      <span>UserDetails</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/country">
+      <mat-icon>map</mat-icon>
+      <span>Country</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/state">
+      <mat-icon>map</mat-icon>
+      <span>State</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/city">
+      <mat-icon>map</mat-icon>
+      <span>City</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/company">
+      <mat-icon>business</mat-icon>
+      <span>Company</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/about">
+      <mat-icon>info</mat-icon>
+      <span>About</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button" routerLink="/review">
+      <mat-icon>help</mat-icon>
+      <span>Review</span>
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+          <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

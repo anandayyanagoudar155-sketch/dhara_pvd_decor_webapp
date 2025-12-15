@@ -1,0 +1,24 @@
+<div class="container mt-3 user-grid-wrapper">
+
+  <div class="header-row">
+    <h2 class="grid-heading">User Details List</h2>
+
+    <button class="btn btn-add" routerLink="/adduserdetail">
+      + Add
+    </button>
+  </div>
+
+  <hr class="grid-line" />
+
+    <ag-grid-angular 
+    #agGrid class="ag-theme-alpine"
+    style="width: 100%; height: 600px;" 
+    [rowData]="userDetailsList" 
+    [columnDefs]="columnDefs" 
+    [defaultColDef]="defaultColDef" 
+    rowSelection="single" 
+    (gridReady)="onGridReady($event)"> 
+    </ag-grid-angular>
+
+
+</div>

@@ -1,0 +1,210 @@
+<div class="hero">
+
+  <!-- LEFT IMAGE SLIDER -->
+  <div id="slider">
+    <figure>
+      <img src="assets/img1.jpg" />
+      <img src="assets/img2.jpg" />
+      <img src="assets/img3.jpg" />
+    </figure>
+  </div>
+
+  <div class="login-wrapper">
+
+    <h2 *ngIf="isLoginMode">Welcome back! Please Login</h2>
+    <h2 *ngIf="!isLoginMode">Create your account</h2>
+
+    <!-- MAIN FORM (dynamic: loginForm or signupForm) -->
+    <form 
+      [formGroup]="isLoginMode ? loginForm : signupForm"
+      (ngSubmit)="isLoginMode ? doLogin() : doRegister()"
+      class="loginForm">
+
+      <!-- MODE SWITCH -->
+      <div class="toggle-buttons">
+
+        <button type="button"
+                class="tab"
+                [class.active]="isLoginMode"
+                (click)="switchMode('login')">
+          Login
+        </button>
+
+        <button type="button"
+                class="tab signup-tab"
+                [class.active]="!isLoginMode"
+                (click)="switchMode('signup')">
+          Signup
+        </button>
+
+      </div>
+
+      <!-- ================= LOGIN FORM ================= -->
+      <ng-container *ngIf="isLoginMode">
+
+        <mat-form-field appearance="outline">
+          <input matInput
+                 placeholder="Username"
+                 formControlName="usernameControl">
+
+        <mat-error *ngIf="loginForm.get('usernameControl')?.hasError('required')">
+            Email is required
+        </mat-error>
+
+        <mat-error *ngIf="!loginForm.get('usernameControl')?.hasError('required') &&
+                            loginForm.get('usernameControl')?.hasError('email')">
+            Enter a valid email address
+        </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput
+                 type="password"
+                 placeholder="Password"
+                 formControlName="passwordControl">
+
+          <mat-error *ngIf="loginForm.get('passwordControl')?.hasError('required')">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('passwordControl')?.hasError('minlength')">
+            Minimum 6 characters required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input type="text"
+                 matInput
+                 placeholder="Select Company"
+                 formControlName="companyControl"
+                 [matAutocomplete]="autoCompany">
+
+          <mat-autocomplete #autoCompany="matAutocomplete" [displayWith]="displayCompanyName">
+            <mat-option *ngFor="let c of filteredCompanies | async" [value]="c">
+              {{ c }}
+            </mat-option>
+          </mat-autocomplete>
+
+        <mat-error *ngIf="loginForm.get('companyControl')?.hasError('required')">
+            Company is required
+        </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input type="text"
+                 matInput
+                 placeholder="Select Financial Year"
+                 formControlName="finYearControl"
+                 [matAutocomplete]="autoFinYear">
+
+          <mat-autocomplete #autoFinYear="matAutocomplete" [displayWith]="displayFinYearName">
+            <mat-option *ngFor="let fy of filteredFinYears | async" [value]="fy">
+              {{ fy }}
+            </mat-option>
+          </mat-autocomplete>
+
+        <mat-error *ngIf="loginForm.get('finYearControl')?.hasError('required')">
+            FinYear is required
+        </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="sharp-material-button"
+                type="button"
+                (click)="doLogin()">
+        LOGIN
+        </button>
+
+      </ng-container>
+
+      <!-- ================= SIGNUP FORM ================= -->
+      <ng-container *ngIf="!isLoginMode">
+
+        <mat-form-field appearance="outline">
+          <input matInput
+                 placeholder="Username(Email)"
+                 formControlName="usernameControl">
+                 
+        <mat-error *ngIf="signupForm.get('usernameControl')?.hasError('required')">
+            Email is required
+        </mat-error>
+
+        <mat-error *ngIf="!signupForm.get('usernameControl')?.hasError('required') &&
+                            signupForm.get('usernameControl')?.hasError('email')">
+            Enter a valid email address
+        </mat-error>
+
+        <mat-error *ngIf="!signupForm.get('usernameControl')?.hasError('required') &&
+                            !signupForm.get('usernameControl')?.hasError('email') &&
+                            signupForm.get('usernameControl')?.hasError('minLength')">
+            Email must be at least 3 characters
+        </mat-error>
+
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select Role" formControlName="roleControl">
+            <mat-option value="admin">Admin</mat-option>
+            <mat-option value="user">User</mat-option>
+          </mat-select>
+
+        <mat-error *ngIf="signupForm.get('roleControl')?.hasError('required')">
+            Role is required
+        </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput
+                 type="password"
+                 placeholder="Create Password"
+                 formControlName="passwordControl">
+
+            <mat-error *ngIf="signupForm.get('passwordControl')?.hasError('required')">
+                Password is required
+            </mat-error>
+
+            <mat-error *ngIf="!signupForm.get('passwordControl')?.hasError('required') &&
+                                signupForm.get('passwordControl')?.hasError('minlength')">
+                Password must be at least 8 characters
+            </mat-error>
+
+            <mat-error *ngIf="!signupForm.get('passwordControl')?.hasError('required') &&
+                                !signupForm.get('passwordControl')?.hasError('minlength') &&
+                                signupForm.get('passwordControl')?.hasError('passwordComplexity')">
+                Password must contain A-Z, a-z, 0-9 & special character.
+            </mat-error>
+
+        </mat-form-field>
+
+
+        <!-- MULTI-COMPANY SELECT -->
+        <mat-form-field appearance="outline">
+          <mat-label>Select Companies</mat-label>
+          <mat-select formControlName="companyControl" multiple>
+            <mat-option *ngFor="let company of companies" [value]="company.comp_id">{{ company.comp_name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="signupForm.get('companyControl')?.hasError('required')">Select at least 1 company</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Financial Years</mat-label>
+          <mat-select formControlName="finYearControl" multiple>
+            <mat-option *ngFor="let fy of finYears" [value]="fy.fin_year_id">{{ fy.fin_name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="signupForm.get('finYearControl')?.hasError('required')">Select at least 1 financial year</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="sharp-material-button" type="submit">
+          SIGN UP
+        </button>
+
+      </ng-container>
+
+    </form>
+  </div>
+</div>
+
+<div class="page-header" style="text-align:center;font-weight:bold">
+  <p>Dhara Pvd © 2023 All Right Reserved</p>
+</div>

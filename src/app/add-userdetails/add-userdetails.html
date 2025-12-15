@@ -1,0 +1,120 @@
+<div class="container">
+
+  <h2>Add User Details</h2>
+  <hr>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+
+    <div class="form-row">
+
+      <!-- USER -->
+      <mat-form-field appearance="outline">
+        <input 
+          type="text"
+          matInput
+          formControlName="userIdControl"
+          [matAutocomplete]="autoUser"
+          placeholder="Select User">
+
+        <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="displayUserName">
+          <mat-option *ngFor="let user of filteredUser | async" [value]="user">
+            {{ user }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <mat-error *ngIf="userForm.get('userIdControl')?.hasError('required')">
+          User is required
+        </mat-error>
+      </mat-form-field>
+
+        <!-- COMPANY -->
+        <mat-form-field appearance="outline">
+        <mat-label>Select Companies</mat-label>
+
+        <mat-select
+            formControlName="compIdControl"
+            multiple
+            (openedChange)="onCompanyOpened()"
+        >
+
+            <!-- Selected Count -->
+            <mat-select-trigger>
+            {{ userForm.get('compIdControl')?.value.length }} selected
+            </mat-select-trigger>
+
+            <!-- Search Box -->
+            <div class="search-box">
+            <input
+                matInput
+                placeholder="Search companies..."
+                [value]="companySearch"
+                (input)="onCompanySearch($event)"
+            />
+            </div>
+
+            <!-- LIST WITHOUT CUSTOM CHECKBOX (IMPORTANT!) -->
+            <mat-option *ngFor="let c of filteredCompanyList" [value]="c.comp_id">
+            {{ c.comp_name }}
+            </mat-option>
+
+        </mat-select>
+
+        <mat-error *ngIf="userForm.get('compIdControl')?.hasError('required')">
+            Select at least 1 company
+        </mat-error>
+        </mat-form-field>
+
+        <!-- FINANCIAL YEAR -->
+        <mat-form-field appearance="outline">
+        <mat-label>Select Financial Years</mat-label>
+
+        <mat-select
+            formControlName="finYearIdControl"
+            multiple
+            (openedChange)="onFinYearOpened()"
+        >
+
+            <!-- Selected Count -->
+            <mat-select-trigger>
+            {{ userForm.get('finYearIdControl')?.value.length }} selected
+            </mat-select-trigger>
+
+            <!-- Search Box -->
+            <div class="search-box">
+            <input
+                matInput
+                placeholder="Search financial years..."
+                [value]="finYearSearch"
+                (input)="onFinYearSearch($event)"
+            />
+            </div>
+
+            <!-- FIN YEAR LIST -->
+            <mat-option *ngFor="let fy of filteredFinYearList" [value]="fy.fin_year_id">
+            {{ fy.fin_name }}
+            </mat-option>
+
+        </mat-select>
+
+        <mat-error *ngIf="userForm.get('finYearIdControl')?.hasError('required')">
+            Select at least 1 financial year
+        </mat-error>
+        </mat-form-field>
+
+
+      <!-- ACTIVE -->
+      <mat-checkbox formControlName="isActiveControl">Active</mat-checkbox>
+
+    </div> <!-- end form-row -->
+
+    <br /><br />
+    <div class="button-row">
+      <button mat-raised-button color="primary" type="submit">Add</button>
+      <button mat-raised-button color="warn" routerLink="/userdetailgrid" type="button">Cancel</button>
+    </div>
+
+  </form>
+
+</div>
+

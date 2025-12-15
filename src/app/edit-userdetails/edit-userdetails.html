@@ -1,0 +1,91 @@
+<div class="container">
+
+  <h2>Edit User Details</h2>
+  <hr>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+    <!-- USER DETAILS ID (readonly) -->
+    <mat-form-field class="example-full-width">
+      <mat-label>User Details ID</mat-label>
+      <input matInput type="text" formControlName="user_details_id" readonly>
+    </mat-form-field>
+
+    <div class="form-row">
+
+      <!-- USER -->
+      <mat-form-field appearance="outline">
+        <input 
+          type="text"
+          matInput
+          formControlName="userIdControl"
+          [matAutocomplete]="autoUser"
+          placeholder="Select User">
+
+        <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="displayUserName">
+          <mat-option *ngFor="let user of filteredUser | async" [value]="user">
+            {{ user }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <mat-error *ngIf="userForm.get('userIdControl')?.hasError('required')">
+          User is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- COMPANY -->
+      <mat-form-field appearance="outline">
+        <input 
+          type="text"
+          matInput
+          formControlName="compIdControl"
+          [matAutocomplete]="autoCompany"
+          placeholder="Select Company">
+
+        <mat-autocomplete #autoCompany="matAutocomplete" [displayWith]="displayCompanyName">
+          <mat-option *ngFor="let company of filteredCompanies | async" [value]="company">
+            {{ company }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <mat-error *ngIf="userForm.get('compIdControl')?.hasError('required')">
+          Company is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- FINANCIAL YEAR -->
+      <mat-form-field appearance="outline">
+        <input 
+          type="text"
+          matInput
+          formControlName="finYearIdControl"
+          [matAutocomplete]="autoFinYear"
+          placeholder="Select Financial Year">
+
+        <mat-autocomplete #autoFinYear="matAutocomplete" [displayWith]="displayFinYearName">
+          <mat-option *ngFor="let fy of filteredFinYears | async" [value]="fy">
+            {{ fy }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <mat-error *ngIf="userForm.get('finYearIdControl')?.hasError('required')">
+          Financial Year is required
+        </mat-error>
+      </mat-form-field>
+
+
+
+      <!-- ACTIVE -->
+      <mat-checkbox formControlName="isActiveControl">Active</mat-checkbox>
+
+    </div> <!-- end form-row -->
+
+    <br /><br />
+    <div class="button-row">
+      <button mat-raised-button color="primary" type="submit">Update</button>
+      <button mat-raised-button color="warn" routerLink="/userdetailgrid" type="button">Cancel</button>
+    </div>
+
+  </form>
+
+</div>

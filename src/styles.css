@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* AG-GRID ACTION BUTTONS */
+.ag-cell button.btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s ease;
+}
+
+/* Yellow Edit button */
+.ag-cell .btn-edit {
+  background-color: #ffc107;   /* Yellow */
+  color: black;
+  font-weight: 600;
+}
+.ag-cell .btn-edit:hover {
+  background-color: #e0a800;
+}
+
+/* Red Delete button */
+.ag-cell .btn-delete {
+  background-color: #dc3545;   /* Red */
+  color: white;
+  font-weight: 600;
+}
+.ag-cell .btn-delete:hover {
+  background-color: #c82333;
+}

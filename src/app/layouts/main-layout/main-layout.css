@@ -1,0 +1,112 @@
+mat-toolbar {
+  background: #002b5c;
+  color: white;
+}
+
+mat-sidenav {
+  margin: 4px;
+  width: 200px;
+  border-right: none;
+  background: #002b5c;
+  color: white;
+  border-radius: 5px;
+  padding: 16px;
+  text-align: center;
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+}
+
+.menu-button mat-icon {
+  margin-right: 8px;
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.name {
+  margin-top: 8px;
+  font-weight: normal;
+}
+
+.designation {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: lightgrey;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.content {
+  height: calc(100vh - 98px);
+  border-radius: 10px;
+  margin: 16px;
+  margin-left: 32px;
+  display: flex;
+  flex-direction: column;   /* stack children vertically */
+  justify-content: flex-start; /* align from top instead of center */
+  align-items: stretch;     /* let children expand full width */
+  font-size: 2rem;
+  color: rgb(207, 46, 46);
+}
+
+.toolbar-title {
+  margin-left: 8px;
+}
+
+.spacer {
+  flex: 1 1 auto; /* pushes elements after it to the right */
+}
+
+.sharp-material-button {
+  border-radius: 0 !important;   /* removes rounded corners */
+  height: 35px !important;       /* adjust height */
+  width: 100px !important;       /* adjust width */
+  min-width: unset !important;   /* prevents Angular Material’s default min-width */
+  padding: 0 !important;         /* keeps it compact */
+  text-transform: uppercase !important; /* keeps text as is (not uppercase) */
+}
+
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+
+mat-sidenav,
+mat-sidenav .mat-icon,
+mat-sidenav .menu-button,
+mat-sidenav .menu-button .mat-icon,
+mat-sidenav .menu-button span,
+mat-sidenav .name,
+mat-sidenav .designation {
+  color: white !important;
+  fill: white !important;
+}
+
+/* Optional: If you want selected/active button to stay a bit different, add this */
+.menu-button.cdk-focused,
+.menu-button.cdk-program-focused,
+.menu-button.active {
+  background: rgba(255,255,255,0.1) !important;
+  color: white !important;
+}
+
+/* Also make the icons inside mat-toolbar white */
+mat-toolbar .mat-icon {
+  color: white !important;
+  fill: white !important;
+}

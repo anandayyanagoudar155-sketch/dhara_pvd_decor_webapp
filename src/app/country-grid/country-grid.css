@@ -1,0 +1,29 @@
+h2 {
+  margin-bottom: 0.2em;
+  color: blue;
+  font-size: large;
+}
+
+hr {
+  border: 1px solid #ccc;
+  margin-bottom: 1em;
+}
+
+.form-row {
+  display: flex;
+  min-width: 180px;
+  flex: 1 1 0;
+  gap: 16px; /* spacing between fields */
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.ag-theme-quartz {
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 10px;
+  background: #fff;
+}

@@ -1,0 +1,89 @@
+<div class="container mt-3">
+  <h2>City Master</h2>
+  <hr />
+
+  <!-- AG Grid -->
+  <div class="ag-theme-quartz" style="height: 360px;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="cityList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+
+  <hr />
+
+  <h2>Add New City</h2>
+  <hr />
+
+  <form [formGroup]="addForm" (ngSubmit)="insertCity()">
+
+    <div class="row">
+
+      <!-- COUNTRY -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Country</mat-label>
+
+          <input type="text"
+                 matInput
+                 [formControl]="countryControl"
+                 placeholder="Search country"
+                 [matAutocomplete]="countryAuto" />
+
+          <mat-autocomplete
+            #countryAuto="matAutocomplete"
+            [displayWith]="displayCountry"
+            (optionSelected)="onCountrySelected($event.option.value)">
+            <mat-option *ngFor="let c of filteredCountries$ | async" [value]="c">
+              {{ c.country_name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <!-- STATE -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>State</mat-label>
+
+          <input type="text"
+                 matInput
+                 [formControl]="stateControl"
+                 placeholder="Search state"
+                 [matAutocomplete]="stateAuto"
+                 [disabled]="!states.length" />
+
+          <mat-autocomplete
+            #stateAuto="matAutocomplete"
+            [displayWith]="displayState"
+            (optionSelected)="selectStateFromAutocomplete($event.option.value)">
+            <mat-option *ngFor="let s of filteredStates$ | async" [value]="s">
+              {{ s.state_name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div class="row mt-2">
+
+      <!--  CITY -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>City Name</mat-label>
+          <input matInput type="text" formControlName="cityName" />
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">
+      Add City
+    </button>
+
+  </form>
+</div>

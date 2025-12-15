@@ -1,0 +1,164 @@
+<div class="company-container">
+
+  <div class="form-header">
+    <h2 *ngIf="!isEditMode">Add Company</h2>
+    <h2 *ngIf="isEditMode">Update Company</h2>
+    <!-- <p class="subtitle">
+      {{ isEditMode ? 'Modify existing company details' : 'Create a new company record' }}
+    </p> -->
+  </div>
+
+  <form [formGroup]="companyForm">
+
+    <!-- ROW 1 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Company Code</mat-label>
+        <input matInput formControlName="comp_code" />
+        <mat-error *ngIf="companyForm.get('comp_code')?.invalid">
+          Company Code is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="comp_name" />
+        <mat-error *ngIf="companyForm.get('comp_name')?.invalid">
+          Company Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Short Name</mat-label>
+        <input matInput formControlName="comp_short_name" />
+      </mat-form-field>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Company Type</mat-label>
+        <input matInput formControlName="comp_type" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="comp_desc" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CIN Number</mat-label>
+        <input matInput formControlName="cin_number" />
+      </mat-form-field>
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>GST Number</mat-label>
+        <input matInput formControlName="gst_number" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>PAN Number</mat-label>
+        <input matInput formControlName="pan_number" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contact Person</mat-label>
+        <input matInput formControlName="contperson_name" />
+      </mat-form-field>
+    </div>
+
+    <!-- ROW 4 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="contact_email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="contact_phone" />
+      </mat-form-field>
+
+      <!-- CITY AUTOCOMPLETE -->
+        <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input
+            type="text"
+            matInput
+            [formControl]="cityControl"
+            [matAutocomplete]="autoCity"
+        />
+
+        <mat-autocomplete
+            #autoCity="matAutocomplete"
+            [displayWith]="displayCity"
+            (optionSelected)="selectCity($event.option.value)"
+        >
+            <mat-option *ngFor="let c of filteredCities$ | async" [value]="c">
+            {{ c.city_name }}
+            </mat-option>
+        </mat-autocomplete>
+        </mat-form-field>
+    </div>
+
+    <!-- ROW 5 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Address Line 1</mat-label>
+        <input matInput formControlName="address_line1" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Address Line 2</mat-label>
+        <input matInput formControlName="address_line2" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Pincode</mat-label>
+        <input matInput formControlName="pincode" />
+      </mat-form-field>
+    </div>
+
+    <!-- ROW 6 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Logo Path</mat-label>
+        <input matInput formControlName="logo_path" />
+      </mat-form-field>
+    </div>
+
+    <!-- ===== ACTION BUTTONS ===== -->
+    <div class="action-row">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="!isEditMode"
+        (click)="submitCompany()"
+      >
+        Submit
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="isEditMode"
+        (click)="updateCompany()"
+      >
+        Update
+      </button>
+
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+    </div>
+
+  </form>
+</div>

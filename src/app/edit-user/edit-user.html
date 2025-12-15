@@ -1,0 +1,108 @@
+<!-- edit-user -->
+<h2>Edit User</h2>
+<hr />
+
+<form [formGroup]="userForm" (ngSubmit)="onUpdateUser()">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>User ID</mat-label>
+    <input matInput type="text" formControlName="User_id" readonly>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>User Name</mat-label>
+    <input matInput type="text" formControlName="User_name">
+    <mat-error *ngIf="userForm.get('User_name')?.hasError('required')">User Name is required</mat-error>
+    <mat-error *ngIf="userForm.get('User_name')?.hasError('minlength')">Minimum 2 characters required</mat-error>
+    <mat-error *ngIf="userForm.get('User_name')?.hasError('maxlength')">Maximum 100 characters allowed</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="User_password">
+    <mat-error *ngIf="userForm.get('User_password')?.hasError('required')">Password is required</mat-error>
+    <mat-error *ngIf="userForm.get('User_password')?.hasError('minlength')">Minimum 4 characters required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>User Role</mat-label>
+    <mat-select formControlName="User_role" placeholder="Select role">
+      <mat-option value="admin">Admin</mat-option>
+      <mat-option value="user">User</mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="userForm.get('User_role')?.hasError('required')">
+      Role is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="Is_login">Is Login Enabled</mat-checkbox>
+
+  <br /><br />
+  <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">
+    Update User
+  </button>
+  <button mat-raised-button color="warn" routerLink="/usergrid" type="button">
+    Cancel
+  </button>
+</form>
+
+<hr />
+
+<!-- AG-Grid section -->
+<h2>User Company / Financial Year Access</h2>
+<hr />
+
+<ag-grid-angular
+  class="ag-theme-alpine"
+  style="width: 100%; height: 320px;"
+  [rowData]="userDetailsGrid"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  rowSelection="multiple"
+  [suppressRowClickSelection]="true"
+  (gridReady)="onGridReady($event)"
+  >
+</ag-grid-angular>
+
+<div class="button-row" style="margin-top: 12px;">
+  <button mat-raised-button color="primary" (click)="onSaveUserDetails()">
+    Save Details
+  </button>
+
+  <button mat-raised-button color="accent" type="button" (click)="onResetGridSelection()">
+    Reset Selection
+  </button>
+</div>
+
+
+<hr />
+<h2>Add New Company / Financial Year Access</h2>
+<hr />
+
+<form [formGroup]="addForm" (ngSubmit)="onAddNewMapping()">
+
+      <mat-form-field appearance="outline" style="width: 45%; margin-right: 20px;">
+          <mat-label>Select Companies</mat-label>
+          <mat-select formControlName="compId" multiple>
+            <mat-option *ngFor="let company of companies" [value]="company.comp_id">{{ company.comp_name }}</mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="addForm.get('compId')?.hasError('required')">Select at least 1 company</mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 45%;">
+          <mat-label>Select Financial Years</mat-label>
+          <mat-select formControlName="finYearId" multiple>
+            <mat-option *ngFor="let fy of finYears" [value]="fy.fin_year_id">{{ fy.fin_name }}</mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="addForm.get('finYearId')?.hasError('required')">Select at least 1 financial year</mat-error> -->
+        </mat-form-field>
+
+  <br /><br />
+  <button mat-raised-button color="primary" type="submit">
+    Add Mapping
+  </button>
+
+</form>
+
+

@@ -1,0 +1,50 @@
+<div class="container mt-3">
+  <h2>State Master</h2>
+  <hr />
+
+  <!-- AG Grid -->
+  <div class="ag-theme-quartz" style="height: 360px;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="stateList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+
+  <hr />
+
+  <h2>Add New State</h2>
+  <hr />
+
+  <form [formGroup]="addForm" (ngSubmit)="insertState()">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Country</mat-label>
+          <input type="text"
+                 matInput
+                 [formControl]="countryControl"
+                 [matAutocomplete]="auto"
+                 placeholder="Search country by name" />
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectCountryFromAutocomplete($event.option.value)">
+            <mat-option *ngFor="let c of filteredCountries$ | async" [value]="c">
+              {{ c.country_name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>State Name</mat-label>
+          <input matInput type="text" formControlName="stateName" />
+          <mat-error *ngIf="addForm.get('stateName')?.hasError('required')">State Name is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">Add State</button>
+  </form>
+</div>

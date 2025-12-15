@@ -1,0 +1,65 @@
+.user-grid-wrapper {
+  padding: 16px;
+}
+
+/* Header row: title + add button in one line */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Heading styling */
+.grid-heading {
+  font-size: 20px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #002b5c;
+}
+
+/* Line below heading */
+.grid-line {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* Generic button style */
+.btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+/* Add button styling */
+.btn-add {
+  background-color: #198754;   /* Green */
+  color: white;
+  font-weight: 600;
+}
+
+.btn-add:hover {
+  background-color: #157347;
+}
+
+/* Primary button (if used later) */
+.btn-primary {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+/* Delete button */
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}

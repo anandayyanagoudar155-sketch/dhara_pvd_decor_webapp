@@ -1,0 +1,42 @@
+/* Heading style */
+h2 {
+  margin-bottom: 0.2em;
+  color: blue;
+  font-size: large;
+}
+
+/* Horizontal rule style */
+hr {
+  border: 1px solid #ccc;
+  margin-bottom: 1em;
+}
+
+/* Form row: each field stacked vertically */
+.form-row {
+  display: flex;
+  flex-direction: column; /* stack fields vertically */
+  gap: 16px;              /* spacing between fields */
+}
+
+/* Make mat-form-field full width */
+.form-row mat-form-field,
+.example-full-width {
+  width: 100%;
+}
+
+/* Checkbox spacing */
+.form-row mat-checkbox {
+  margin-top: 8px;
+}
+
+/* Buttons spacing */
+.button-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Optional: Adjust mat-form-field appearance inside the form */
+mat-form-field {
+  width: 100%;
+}

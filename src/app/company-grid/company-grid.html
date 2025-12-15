@@ -1,0 +1,22 @@
+<div class="container mt-3">
+
+  <div class="header-row">
+    <h2 class="grid-heading">Company Master</h2>
+
+    <button class="btn btn-add" routerLink="/company/add">
+      + Add Company
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="ag-theme-quartz" style="height: 650px; width: 100%;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="companyList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+</div>

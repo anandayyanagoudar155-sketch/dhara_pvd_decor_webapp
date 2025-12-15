@@ -1,0 +1,48 @@
+h2 {
+  margin-bottom: 0.2em;
+  color: blue;
+  font-size: large;
+  font-weight: 600;
+}
+
+hr {
+  border: 1px solid #ccc;
+  margin: 1em 0;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.ag-theme-quartz {
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 10px;
+  background: #fff;
+}
+
+.btn-edit {
+  background-color: #f1c40f;
+  color: #111;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button[mat-raised-button] {
+  margin-top: 8px;
+}
