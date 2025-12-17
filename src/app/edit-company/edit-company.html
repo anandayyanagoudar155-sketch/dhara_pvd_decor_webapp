@@ -49,6 +49,9 @@
       <mat-form-field appearance="outline">
         <mat-label>CIN Number</mat-label>
         <input matInput formControlName="cin_number" />
+              <mat-error *ngIf="companyForm.get('cin_number')?.hasError('pattern')">
+        CIN must be exactly 21 alphanumeric characters
+      </mat-error>
       </mat-form-field>
     </div>
 
@@ -57,11 +60,17 @@
       <mat-form-field appearance="outline">
         <mat-label>GST Number</mat-label>
         <input matInput formControlName="gst_number" />
+        <mat-error *ngIf="companyForm.get('gst_number')?.hasError('pattern')">
+          GSTIN must be exactly 15 alphanumeric characters
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>PAN Number</mat-label>
         <input matInput formControlName="pan_number" />
+        <mat-error *ngIf="companyForm.get('pan_number')?.hasError('pattern')">
+          PAN format should be ABCDE1234F
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -75,11 +84,17 @@
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput formControlName="contact_email" />
+          <mat-error *ngIf="companyForm.get('contact_email')?.hasError('email')">
+            Enter a valid email address
+          </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Phone</mat-label>
         <input matInput formControlName="contact_phone" />
+        <mat-error *ngIf="companyForm.get('contact_phone')?.hasError('pattern')">
+          Enter a valid 10-digit mobile number
+        </mat-error>
       </mat-form-field>
 
       <!-- CITY AUTOCOMPLETE -->
@@ -119,6 +134,9 @@
       <mat-form-field appearance="outline">
         <mat-label>Pincode</mat-label>
         <input matInput formControlName="pincode" />
+        <mat-error *ngIf="companyForm.get('pincode')?.hasError('pattern')">
+          Pincode must be exactly 6 digits
+        </mat-error>
       </mat-form-field>
     </div>
 

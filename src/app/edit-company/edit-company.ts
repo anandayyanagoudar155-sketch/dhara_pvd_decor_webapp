@@ -57,15 +57,15 @@ export class EditCompany implements OnInit {
       comp_short_name: [''],
       comp_type: [''],
       comp_desc: [''],
-      cin_number: [''],
-      gst_number: [''],
-      pan_number: [''],
+      cin_number: ['',Validators.pattern(/^[A-Z0-9]{21}$/)],
+      gst_number: ['',Validators.pattern(/^[0-9A-Z]{15}$/)],
+      pan_number: ['',Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)],
       contperson_name: [''],
       contact_email: ['', Validators.email],
-      contact_phone: [''],
+      contact_phone: ['',Validators.pattern(/^[0-9]{15}$/)],
       address_line1: [''],
       address_line2: [''],
-      pincode: [''],
+      pincode: ['', Validators.pattern(/^[1-9][0-9]{5}$/)],
       logo_path: ['']
     });
   }

@@ -121,6 +121,32 @@ export interface SingleCompany {
   modified_by?: number;
 }
 
+export interface FinYearList {
+  fin_year_id: number;
+  fin_name: string;
+  short_fin_year: string;
+  year_start: string;
+  year_end: string;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleFinYear {
+  fin_year_id: number;
+  fin_name: string;
+  short_fin_year: string;
+  year_start: Date;
+  year_end: Date;
+  created_date: Date;
+  updated_date: Date | null;
+  created_by: number;
+  modified_by: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -178,20 +204,6 @@ export class LoginServices {
   //     )
   //   );
   // }
-
-
-  getFinYears(userId: number): Observable<FinancialYear[]> {
-  return this.http.get<any[]>(
-    `${this.baseUrl}/FinYear/dropdown_finyear_list?userId=${userId}`
-  ).pipe(
-    map(data =>
-      data.map(item => ({
-        fin_year_id: item.fin_year_id,
-        fin_name: item.fin_name
-      }))
-    )
-  );
-}
 
 
   firstLoginValidate(payload: any): Observable<any> {
@@ -389,6 +401,45 @@ export class LoginServices {
   deleteCompany(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/Company/Deletecompany/${id}`);
   }
+
+
+  //apifinyear
+
+  insertFinYear(payload: any): Observable<any> 
+    {return this.http.post(`${this.baseUrl}/FinYear/insert_fin_year`,payload);
+  }
+
+  updateFinYear(payload: any): Observable<any>  {
+    return this.http.post(`${this.baseUrl}/FinYear/UpdateFinYear`,payload);
+  }
+
+  deleteFinYear(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/FinYear/DeleteFinYear/${id}`);
+  }
+
+  getFinYearList(): Observable<FinYearList[]> {
+    return this.http.get<FinYearList[]>(`${this.baseUrl}/FinYear/fin_year_list`);
+  }
+
+  getFinYearById(finYearId: number): Observable<SingleFinYear> {
+    return this.http.get<SingleFinYear>(`${this.baseUrl}/FinYear/fin_year/${finYearId}`);
+  }
+
+  getFinYears(userId: number): Observable<FinancialYear[]> {
+  return this.http.get<any[]>(
+    `${this.baseUrl}/FinYear/dropdown_finyear_list?userId=${userId}`
+  ).pipe(
+    map(data =>
+      data.map(item => ({
+        fin_year_id: item.fin_year_id,
+        fin_name: item.fin_name
+      }))
+    )
+  );
+}
+
+
+
 
   
 }

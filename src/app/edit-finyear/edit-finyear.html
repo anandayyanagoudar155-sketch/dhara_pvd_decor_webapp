@@ -1,0 +1,91 @@
+<div class="finyear-container">
+
+  <div class="form-header">
+    <h2 *ngIf="!isEditMode">Add Financial Year</h2>
+    <h2 *ngIf="isEditMode">Update Financial Year</h2>
+  </div>
+
+  <form [formGroup]="finYearForm">
+
+    <!-- ROW 1 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Financial Year Name</mat-label>
+        <input matInput formControlName="fin_name" />
+        <mat-error *ngIf="finYearForm.get('fin_name')?.invalid">
+          Financial Year Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Short Name</mat-label>
+        <input matInput formControlName="short_fin_year" />
+        <mat-error *ngIf="finYearForm.get('short_fin_year')?.invalid">
+          Short Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Year Start</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startPicker"
+          formControlName="year_start"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Year End</mat-label>
+        <input
+          matInput
+          [matDatepicker]="endPicker"
+          formControlName="year_end"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="action-row">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="!isEditMode"
+        (click)="submitFinYear()"
+      >
+        Submit
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="isEditMode"
+        (click)="updateFinYear()"
+      >
+        Update
+      </button>
+
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+    </div>
+
+  </form>
+</div>

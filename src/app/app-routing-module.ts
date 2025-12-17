@@ -14,6 +14,8 @@ import { StateGrid } from './state-grid/state-grid';
 import { CityGrid } from './city-grid/city-grid';
 import { CompanyGrid } from './company-grid/company-grid';
 import { EditCompany } from './edit-company/edit-company';
+import { FinyearGrid } from './finyear-grid/finyear-grid';
+import { EditFinyear } from './edit-finyear/edit-finyear';
 
 const routes: Routes = [
   {
@@ -36,7 +38,10 @@ const routes: Routes = [
       {path: 'city',component:CityGrid},
       {path: 'company',component:CompanyGrid},
       {path: 'company/add', component: EditCompany },
-      {path: 'company/edit/:id', component: EditCompany }
+      {path: 'company/edit/:id', component: EditCompany },
+      {path: 'finyearlist',component:FinyearGrid},
+      {path: 'finyear/add', component: EditFinyear },
+      {path: 'finyear/edit/:id', component: EditFinyear }
     ]
   },
   {

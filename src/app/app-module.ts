@@ -41,6 +41,8 @@ import { StateGrid } from './state-grid/state-grid';
 import { CityGrid } from './city-grid/city-grid';
 import { CompanyGrid } from './company-grid/company-grid';
 import { EditCompany } from './edit-company/edit-company';
+import { FinyearGrid } from './finyear-grid/finyear-grid';
+import { EditFinyear } from './edit-finyear/edit-finyear';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -60,7 +62,9 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     StateGrid,
     CityGrid,
     CompanyGrid,
-    EditCompany
+    EditCompany,
+    FinyearGrid,
+    EditFinyear
   ],
   imports: [
    BrowserModule,
