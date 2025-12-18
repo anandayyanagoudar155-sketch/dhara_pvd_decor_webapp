@@ -43,6 +43,7 @@ import { CompanyGrid } from './company-grid/company-grid';
 import { EditCompany } from './edit-company/edit-company';
 import { FinyearGrid } from './finyear-grid/finyear-grid';
 import { EditFinyear } from './edit-finyear/edit-finyear';
+import { BrandGrid } from './brand-grid/brand-grid';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -64,7 +65,8 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     CompanyGrid,
     EditCompany,
     FinyearGrid,
-    EditFinyear
+    EditFinyear,
+    BrandGrid
   ],
   imports: [
    BrowserModule,

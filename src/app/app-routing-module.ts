@@ -16,6 +16,7 @@ import { CompanyGrid } from './company-grid/company-grid';
 import { EditCompany } from './edit-company/edit-company';
 import { FinyearGrid } from './finyear-grid/finyear-grid';
 import { EditFinyear } from './edit-finyear/edit-finyear';
+import { BrandGrid } from './brand-grid/brand-grid';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
       {path: 'company/edit/:id', component: EditCompany },
       {path: 'finyearlist',component:FinyearGrid},
       {path: 'finyear/add', component: EditFinyear },
-      {path: 'finyear/edit/:id', component: EditFinyear }
+      {path: 'finyear/edit/:id', component: EditFinyear },
+      {path: 'brand',component:BrandGrid}
     ]
   },
   {

@@ -47,7 +47,12 @@ export class EditFinyear implements OnInit {
 
   initializeForm() {
     this.finYearForm = this.fb.group({
-      fin_name: ['', Validators.required],
+   fin_name: ['',
+      [
+        Validators.required,
+        Validators.pattern(/^\d{4}-\d{4}$/)
+      ]
+    ],
       short_fin_year: ['', Validators.required],
       year_start: ['', Validators.required],
       year_end: ['', Validators.required]
@@ -81,19 +86,28 @@ autoGenerateFinYear(finName: string) {
   if (!match) return;
 
   const startYear = Number(match[1]);
-  const endYear = Number(match[2]);
+  const endYear = startYear + 1;
 
-  const shortFinYear =
-    startYear.toString().slice(2) + '-' + endYear.toString().slice(2);
+  console.log(startYear)
+  console.log(endYear)
 
-  const yearStart = new Date(startYear, 3, 1); // April = 3
-  const yearEnd = new Date(endYear, 2, 31);    // March = 2
+  const shortFinYear = startYear.toString().slice(2) + '-' + endYear.toString().slice(2);
 
-  this.finYearForm.patchValue({
-    short_fin_year: shortFinYear,
-    year_start: yearStart,
-    year_end: yearEnd
-  }, { emitEvent: false });
+  const yearStart = new Date(startYear, 3, 1);  // 01-Apr
+  const yearEnd = new Date(endYear, 2, 31);     // 31-Mar
+
+  console.log(yearStart)
+  console.log(yearEnd)
+
+  this.finYearForm.patchValue(
+    {
+      fin_name: `${startYear}-${endYear}`, 
+      short_fin_year: shortFinYear,
+      year_start: yearStart,
+      year_end: yearEnd
+    },
+    { emitEvent: false }
+  );
 }
 
   loadFinYearForEdit(finYearId: number) {

@@ -11,9 +11,15 @@
     <div class="form-row">
       <mat-form-field appearance="outline">
         <mat-label>Financial Year Name</mat-label>
-        <input matInput formControlName="fin_name" />
-        <mat-error *ngIf="finYearForm.get('fin_name')?.invalid">
-          Financial Year Name is required
+        <input matInput 
+        placeholder="yyyy-yyyy (e.g. 2026-2027)"
+        formControlName="fin_name" />
+        <mat-error *ngIf="finYearForm.get('fin_name')?.hasError('required')">
+        Financial Year Name is required
+        </mat-error>
+
+        <mat-error *ngIf="finYearForm.get('fin_name')?.hasError('pattern')">
+        Enter valid format like 2026-2027
         </mat-error>
       </mat-form-field>
 

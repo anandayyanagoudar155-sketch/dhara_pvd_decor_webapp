@@ -147,6 +147,33 @@ export interface SingleFinYear {
   modified_by: number;
 }
 
+export interface BrandList {
+  brand_id: number;
+  brand_name: string;
+  brand_desc: string;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleBrand {
+  brand_id: number;
+  brand_name: string;
+  brand_desc: string;
+  created_date: string | null;
+  updated_date: string | null;
+  created_by: number;
+  modified_by: number | null;
+}
+
+export interface DropBrand {
+  brand_id: number;
+  brand_name: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -437,6 +464,44 @@ export class LoginServices {
     )
   );
 }
+
+
+//brandapi
+
+ insertBrand(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Brand/insert_brand`,payload);
+  }
+
+  updateBrand(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Brand/update_brand`,payload);
+  }
+
+  deleteBrand(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Brand/delete_brand/${id}`);
+  }
+
+  getBrandList(): Observable<BrandList[]> {
+    return this.http.get<BrandList[]>(`${this.baseUrl}/Brand/brand_list`);
+  }
+
+  getBrandById(brandId: number): Observable<SingleBrand> {
+    return this.http.get<SingleBrand>(`${this.baseUrl}/Brand/brand/${brandId}`);
+  }
+
+
+  getBrands(): Observable<DropBrand[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/Brand/dropdown_brand_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          brand_id: item.brand_id,
+          brand_name: item.brand_name
+        }))
+      )
+    );
+  }
+
 
 
 
