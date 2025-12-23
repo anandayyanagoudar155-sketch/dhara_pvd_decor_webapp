@@ -44,6 +44,10 @@ import { EditCompany } from './edit-company/edit-company';
 import { FinyearGrid } from './finyear-grid/finyear-grid';
 import { EditFinyear } from './edit-finyear/edit-finyear';
 import { BrandGrid } from './brand-grid/brand-grid';
+import { ColourGrid } from './colour-grid/colour-grid';
+import { HsnGrid } from './hsn-grid/hsn-grid';
+import { MonthGrid } from './month-grid/month-grid';
+import { UnitGrid } from './unit-grid/unit-grid';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -66,7 +70,11 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     EditCompany,
     FinyearGrid,
     EditFinyear,
-    BrandGrid
+    BrandGrid,
+    ColourGrid,
+    HsnGrid,
+    MonthGrid,
+    UnitGrid
   ],
   imports: [
    BrowserModule,

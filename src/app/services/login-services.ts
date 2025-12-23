@@ -174,6 +174,123 @@ export interface DropBrand {
   brand_name: string;
 }
 
+export interface ColourList {
+  colourId: number;
+  colourName: string;
+  isActive: boolean;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleColour {
+  colourId: number;
+  colourName: string;
+  isActive: boolean;
+  created_date: string;
+  updated_date: string | null;
+  created_by: number;
+  modified_by: number;
+}
+
+export interface DropColour {
+  colourId: number;
+  colourName: string;
+}
+
+
+export interface HsnList {
+  hsnId: number;
+  hsnCode: string;
+  cgst_perc: number;
+  sgst_perc: number;
+  igst_perc: number;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number | null;
+  created_by_name: string;
+  modified_by_name: string | null;
+}
+
+export interface SingleHsn {
+  hsnId: number;
+  hsnCode: string;
+  cgst_perc: number;
+  sgst_perc: number;
+  igst_perc: number;
+  created_date: string | null;
+  updated_date: string | null;
+  created_by: number;
+  modified_by: number | null;
+}
+
+export interface DropHsn {
+  hsnId: number;
+  hsnCode: string;
+}
+
+export interface MonthList {
+  month_id: number;
+  month_name: string;
+  start_date: string;
+  end_date: string;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleMonth {
+  month_id: number;
+  month_name: string;
+  start_date?: Date;
+  end_date?: Date;
+  created_date?: Date;
+  updated_date?: Date;
+  created_by: number;
+  modified_by: number;
+}
+
+export interface DropMonth {
+  month_id: number;
+  month_name: string;
+}
+
+export interface UnitList {
+  unitId: number;
+  unitName: string;
+  unitDesc: string;
+  isActive: boolean;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleUnit {
+  unitId: number;
+  unitName: string;
+  unitDesc: string;
+  isActive: boolean;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+}
+
+export interface DropUnit {
+  unitId: number;
+  unitName: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -503,7 +620,154 @@ export class LoginServices {
   }
 
 
+  ///colour api
 
+  insertColour(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Colour/insert_colour`, payload);
+  }
+
+  updateColour(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Colour/Updatecolour`,payload);
+  }
+
+  deleteColour(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Colour/Deletecolour/${id}`);
+  }
+
+  getColourList(): Observable<ColourList[]> {
+    return this.http.get<ColourList[]>( `${this.baseUrl}/Colour/colour_list`);
+  }
+
+  getColourById(id: number): Observable<SingleColour> {
+    return this.http.get<SingleColour>( `${this.baseUrl}/Colour/colour/${id}`);
+  }
+
+  getColourDropdown(): Observable<DropColour[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/Colour/dropdown_colour_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          colourId: item.colourId,
+          colourName: item.colourName
+        }))
+      )
+    );
+  }
+
+
+  //hsn api
+
+  insertHsn(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Hsn/insert_hsn`,payload);
+  }
+
+  updateHsn(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Hsn/update_hsn`,payload);
+  }
+
+  deleteHsn(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Hsn/delete_hsn/${id}`);
+  }
+
+  getHsnList(): Observable<HsnList[]> {
+    return this.http.get<HsnList[]>(`${this.baseUrl}/Hsn/hsn_list`);
+  }
+
+  getHsnById(id: number): Observable<SingleHsn> {
+    return this.http.get<SingleHsn>(`${this.baseUrl}/Hsn/hsn/${id}`);
+  }
+
+
+  getHsnDropdown(): Observable<DropHsn[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/Colour/dropdown_colour_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          hsnId: item.hsnId,
+          hsnCode: item.hsnCode
+        }))
+      )
+    );
+  }
+
+
+  ///mont api
+
+
+  insertMonth(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Month/insert_month`,payload);
+  }
+
+ 
+  updateMonth(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Month/Updatemonth`,payload);
+  }
+
+
+  deleteMonth(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Month/Deletemonth/${id}`);
+  }
+
+
+  getMonthList(): Observable<MonthList[]> {
+    return this.http.get<MonthList[]>(`${this.baseUrl}/Month/month_list`);
+  }
+
+
+  getMonthById(id: number): Observable<SingleMonth> {
+    return this.http.get<SingleMonth>(`${this.baseUrl}/Month/month/${id}`);
+  }
+
+  getMonthDropdown(): Observable<DropMonth[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/Month/dropdown_month_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          month_id: item.month_id,
+          month_name: item.month_name
+        }))
+      )
+    );
+  }
+
+
+  ///unit api
+
+  insertUnit(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Unit/insert_unit`,payload);
+  }
+
+  updateUnit(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Unit/Updateunit`,payload);
+  }
+
+  deleteUnit(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Unit/Deleteunit/${id}`);
+  }
+
+  getUnitList(): Observable<UnitList[]> {
+    return this.http.get<UnitList[]>(`${this.baseUrl}/Unit/unit_list`);
+  }
+
+  getUnitById(id: number): Observable<SingleUnit> {
+    return this.http.get<SingleUnit>(`${this.baseUrl}/Unit/unit/${id}`);
+  }
+
+  getUnitDropdown(): Observable<DropUnit[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/Unit/dropdown_unit_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          unitId: item.unitId,
+          unitName: item.unitName
+        }))
+      )
+    );
+  }
 
 
   
