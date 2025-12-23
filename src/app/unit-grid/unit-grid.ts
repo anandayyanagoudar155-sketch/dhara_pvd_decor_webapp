@@ -97,9 +97,6 @@ export class UnitGrid implements OnInit {
     });
   }
 
-  // =============================
-  // INSERT UNIT
-  // =============================
   insertUnit() {
     if (this.addForm.invalid) {
       alert('Unit name is required');
@@ -130,9 +127,6 @@ export class UnitGrid implements OnInit {
     });
   }
 
-  // =============================
-  // UPDATE UNIT
-  // =============================
   updateUnit(row: any) {
     if (!row.unitName) {
       alert('Unit name cannot be empty');
@@ -164,9 +158,6 @@ export class UnitGrid implements OnInit {
     });
   }
 
-  // =============================
-  // DELETE UNIT
-  // =============================
   deleteUnit(id: number) {
     if (!confirm('Are you sure you want to delete this unit?')) return;
 
