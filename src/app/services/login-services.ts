@@ -291,6 +291,63 @@ export interface DropUnit {
   unitName: string;
 }
 
+
+export interface PaytypeList {
+  paytype_Id: number;
+  paytype_Name: string;
+  paytype_Desc: string;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SinglePaytype {
+  paytype_Id: number;
+  paytype_Name: string;
+  paytype_Desc: string;
+  created_date: Date | null;
+  updated_date: Date | null;
+  created_by: number;
+  modified_by: number | null;
+}
+
+export interface DropPaytype {
+  paytypeId: number;
+  paytypeName: string;
+}
+
+
+export interface TransTypeList {
+  trans_id: number;
+  transtype_name: string;
+  transtype_desc: string;
+  created_Date: string;
+  updated_Date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleTransType {
+  trans_id: number;
+  transtype_name: string;
+  transtype_desc: string;
+  created_Date: Date | null;
+  updated_Date: Date | null;
+  created_by: number;
+  modified_by: number | null;
+}
+
+export interface DropTransType {
+  trans_id: number;
+  transtype_name: string;
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -768,6 +825,87 @@ export class LoginServices {
       )
     );
   }
+
+
+  //paytype api
+
+  insertPaytype(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/PayType/insert_paytype`,payload);
+  }
+
+
+  updatePaytype(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/PayType/update_paytype`, payload);
+  }
+
+
+  deletePaytype(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/PayType/delete_paytype/${id}`);
+  }
+
+  getPaytypeList(): Observable<PaytypeList[]> {
+    return this.http.get<PaytypeList[]>(`${this.baseUrl}/PayType/paytype_list`);
+  }
+
+
+  getPaytypeById(id: number): Observable<SinglePaytype> {
+    return this.http.get<SinglePaytype>(`${this.baseUrl}/PayType/paytype/${id}`);
+  }
+
+  getPaytypeDropdown(): Observable<DropPaytype[]> {
+    return this.http.get<DropPaytype[]>(
+      `${this.baseUrl}/PayType/dropdown_paytype_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          paytypeId: item.paytypeId,
+          paytypeName: item.paytypeName
+        }))
+      )
+    );
+  }
+
+  //TransType
+
+
+  insertTransType(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/TranType/insert_trans_type`,payload);
+  }
+
+  updateTransType(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/TranType/UpdateTransType`,payload);
+  }
+
+
+  deleteTransType(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/TranType/DeleteTransType/${id}`);
+  }
+
+
+  getTransTypeList(): Observable<TransTypeList[]> {
+    return this.http.get<TransTypeList[]>(`${this.baseUrl}/TranType/trans_type_list`);
+  }
+
+
+  getTransTypeById(id: number): Observable<SingleTransType> {
+    return this.http.get<SingleTransType>( `${this.baseUrl}/TranType/trans_type/${id}`);
+  }
+
+
+  getTransTypeDropdown(): Observable<DropTransType[]> {
+    return this.http.get<DropTransType[]>(
+      `${this.baseUrl}/TranType/dropdown_trans_type_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          trans_id: item.trans_id,
+          transtype_name: item.transtype_name
+        }))
+      )
+    );
+  }
+
+
 
 
   

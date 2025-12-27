@@ -21,6 +21,8 @@ import { ColourGrid } from './colour-grid/colour-grid';
 import { HsnGrid } from './hsn-grid/hsn-grid';
 import { MonthGrid } from './month-grid/month-grid';
 import { UnitGrid } from './unit-grid/unit-grid';
+import { PaytypeGrid } from './paytype-grid/paytype-grid';
+import { TranstypeGrid } from './transtype-grid/transtype-grid';
 
 const routes: Routes = [
   {
@@ -51,7 +53,9 @@ const routes: Routes = [
       {path: 'colour',component:ColourGrid},
       {path: 'hsn',component:HsnGrid},
       {path: 'monthlist',component:MonthGrid},
-      {path: 'unitlist',component:UnitGrid,}
+      {path: 'unitlist',component:UnitGrid},
+      {path: 'paytypelist',component:PaytypeGrid},
+      {path: 'transtypelist',component:TranstypeGrid}
     ]
   },
   {

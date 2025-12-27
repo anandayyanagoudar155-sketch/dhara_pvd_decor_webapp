@@ -1,0 +1,55 @@
+<div class="container mt-3">
+
+  <h2>Paytype Master</h2>
+  <hr>
+
+  <!-- AG GRID -->
+  <div class="ag-theme-quartz" style="height: 360px;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="paytypeList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+
+  <hr>
+
+  <!-- ADD PAYTYPE -->
+  <h2>Add New Paytype</h2>
+  <hr>
+
+  <form [formGroup]="addForm">
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Paytype Name</mat-label>
+          <input matInput formControlName="paytypeName">
+          <mat-error *ngIf="addForm.get('paytypeName')?.hasError('required')">
+            Paytype name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Paytype Description</mat-label>
+          <input matInput formControlName="paytypeDesc">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      class="mt-2"
+      (click)="insertPaytype()">
+      Add Paytype
+    </button>
+
+  </form>
+
+</div>

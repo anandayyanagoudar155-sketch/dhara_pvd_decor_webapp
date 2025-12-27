@@ -1,0 +1,55 @@
+<div class="container mt-3">
+
+  <h2>Transaction Type Master</h2>
+  <hr>
+
+  <!-- AG GRID -->
+  <div class="ag-theme-quartz" style="height: 360px;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="transTypeList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+
+  <hr>
+
+  <!-- ADD TRANSACTION TYPE -->
+  <h2>Add New Transaction Type</h2>
+  <hr>
+
+  <form [formGroup]="addForm">
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Transaction Type Name</mat-label>
+          <input matInput formControlName="transtypeName">
+          <mat-error *ngIf="addForm.get('transtypeName')?.hasError('required')">
+            Transaction type name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="transtypeDesc">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      class="mt-2"
+      (click)="insertTransType()">
+      Add Transaction Type
+    </button>
+
+  </form>
+
+</div>

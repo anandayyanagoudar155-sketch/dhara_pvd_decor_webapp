@@ -48,6 +48,8 @@ import { ColourGrid } from './colour-grid/colour-grid';
 import { HsnGrid } from './hsn-grid/hsn-grid';
 import { MonthGrid } from './month-grid/month-grid';
 import { UnitGrid } from './unit-grid/unit-grid';
+import { PaytypeGrid } from './paytype-grid/paytype-grid';
+import { TranstypeGrid } from './transtype-grid/transtype-grid';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -74,7 +76,9 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     ColourGrid,
     HsnGrid,
     MonthGrid,
-    UnitGrid
+    UnitGrid,
+    PaytypeGrid,
+    TranstypeGrid
   ],
   imports: [
    BrowserModule,
