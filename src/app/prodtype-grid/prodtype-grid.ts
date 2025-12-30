@@ -4,33 +4,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginServices } from '../services/login-services';
 
 @Component({
-  selector: 'app-transtype-grid',
+  selector: 'app-prodtype-grid',
   standalone: false,
-  templateUrl: './transtype-grid.html',
-  styleUrl: './transtype-grid.css',
+  templateUrl: './prodtype-grid.html',
+  styleUrl: './prodtype-grid.css',
 })
-export class TranstypeGrid implements OnInit {
+export class ProdtypeGrid implements OnInit {
 
   gridApi!: GridApi;
-  transTypeList: any[] = [];
+  prodTypeList: any[] = [];
   addForm!: FormGroup;
 
   columnDefs: ColDef[] = [
     {
       headerName: 'ID',
-      field: 'trans_id',
+      field: 'prodtype_Id',
       minWidth: 100,
       flex: 1
     },
     {
-      headerName: 'Transaction Type Name',
-      field: 'transtype_name',
+      headerName: 'Product Type Name',
+      field: 'prodtype_Name',
       editable: true,
       flex: 2
     },
     {
       headerName: 'Description',
-      field: 'transtype_desc',
+      field: 'prodtype_Desc',
       editable: true,
       flex: 3
     },
@@ -45,12 +45,12 @@ export class TranstypeGrid implements OnInit {
         const updateBtn = document.createElement('button');
         updateBtn.classList.add('btn', 'btn-edit');
         updateBtn.innerText = 'Update';
-        updateBtn.onclick = () => this.updateTransType(params.data);
+        updateBtn.onclick = () => this.updateProdtype(params.data);
 
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('btn', 'btn-delete');
         deleteBtn.innerText = 'Delete';
-        deleteBtn.onclick = () => this.deleteTransType(params.data.trans_id);
+        deleteBtn.onclick = () => this.deleteProdtype(params.data.prodtype_Id);
 
         container.appendChild(updateBtn);
         container.appendChild(deleteBtn);
@@ -72,11 +72,11 @@ export class TranstypeGrid implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadTransTypeList();
+    this.loadProdtypeList();
 
     this.addForm = this.fb.group({
-      transtypeName: ['', Validators.required],
-      transtypeDesc: ['']
+      prodtypeName: ['', Validators.required],
+      prodtypeDesc: ['']
     });
   }
 
@@ -84,21 +84,21 @@ export class TranstypeGrid implements OnInit {
     this.gridApi = params.api;
   }
 
-  loadTransTypeList() {
-    this.service.getTransTypeList().subscribe({
+  loadProdtypeList() {
+    this.service.getProdtypeList().subscribe({
       next: res => {
-        this.transTypeList = res;
+        this.prodTypeList = res;
         if (this.gridApi) {
-          this.gridApi.setGridOption('rowData', this.transTypeList);
+          this.gridApi.setGridOption('rowData', this.prodTypeList);
         }
       },
       error: err => console.error(err)
     });
   }
 
-  insertTransType() {
+  insertProdtype() {
     if (this.addForm.invalid) {
-      alert('Transaction type name is required');
+      alert('Product type name is required');
       return;
     }
 
@@ -106,65 +106,63 @@ export class TranstypeGrid implements OnInit {
     const formVal = this.addForm.getRawValue();
 
     const payload = {
-      trans_id: 0,
-      transtype_name: formVal.transtypeName,
-      transtype_desc: formVal.transtypeDesc,
+      prodtype_Id: 0,
+      prodtype_Name: formVal.prodtypeName,
+      prodtype_Desc: formVal.prodtypeDesc,
       created_date: new Date(),
       updated_date: new Date(),
       created_by: userobj.user_id,
       modified_by: userobj.user_id
     };
 
-    this.service.insertTransType(payload).subscribe({
+    this.service.insertProdtype(payload).subscribe({
       next: () => {
-        alert('Transaction type added successfully');
+        alert('Product type added successfully');
         this.addForm.reset();
-        this.loadTransTypeList();
+        this.loadProdtypeList();
       },
       error: err =>
         alert(err.error?.errorMessage || 'Error occurred')
     });
   }
 
-  updateTransType(row: any) {
-    if (!row.transtype_name) {
-      alert('Transaction type name cannot be empty');
+  updateProdtype(row: any) {
+    if (!row.prodtype_Name) {
+      alert('Product type name cannot be empty');
       return;
     }
 
     const userobj = JSON.parse(sessionStorage.getItem('userobj')!);
 
     const payload = {
-      trans_id: row.trans_id,
-      transtype_name: row.transtype_name,
-      transtype_desc: row.transtype_desc,
+      prodtype_Id: row.prodtype_Id,
+      prodtype_Name: row.prodtype_Name,
+      prodtype_Desc: row.prodtype_Desc,
       created_date: row.created_date,
       updated_date: new Date(),
       created_by: row.created_by,
       modified_by: userobj.user_id
     };
 
-    console.log('payload:', payload);
-
-    this.service.updateTransType(payload).subscribe({
+    this.service.updateProdtype(payload).subscribe({
       next: () => {
-        alert('Transaction type updated successfully');
-        this.loadTransTypeList();
+        alert('Product type updated successfully');
+        this.loadProdtypeList();
       },
       error: err => {
         alert(err.error?.errorMessage || 'Error occurred');
-        this.loadTransTypeList();
+        this.loadProdtypeList();
       }
     });
   }
 
-  deleteTransType(id: number) {
-    if (!confirm('Are you sure you want to delete this transaction type?')) return;
+  deleteProdtype(id: number) {
+    if (!confirm('Are you sure you want to delete this product type?')) return;
 
-    this.service.deleteTransType(id).subscribe({
+    this.service.deleteProdtype(id).subscribe({
       next: () => {
-        alert('Transaction type deleted successfully');
-        this.loadTransTypeList();
+        alert('Product type deleted successfully');
+        this.loadProdtypeList();
       },
       error: err =>
         alert(err.error?.errorMessage || 'Error occurred')

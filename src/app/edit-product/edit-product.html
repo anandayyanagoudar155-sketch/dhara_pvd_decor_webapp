@@ -1,0 +1,162 @@
+<div class="product-container">
+
+  <!-- ===== HEADER ===== -->
+  <div class="form-header">
+    <h2 *ngIf="!isEditMode">Add Product</h2>
+    <h2 *ngIf="isEditMode">Update Product</h2>
+  </div>
+
+  <!-- ===== FORM ===== -->
+  <form [formGroup]="productForm">
+
+    <!-- ===== ROW 1 : PRODUCT DETAILS ===== -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="product_name" />
+        <mat-error *ngIf="productForm.get('product_name')?.invalid">
+          Product Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="product_desc" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rate</mat-label>
+        <input matInput type="number" formControlName="rate" />
+        <mat-error *ngIf="productForm.get('rate')?.invalid">
+          Rate is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- ===== ROW 2 : PRODTYPE AUTOCOMPLETE ===== -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Product Type</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="prodtypeControl"
+          [matAutocomplete]="autoProdtype"
+        />
+
+        <mat-autocomplete
+          #autoProdtype="matAutocomplete"
+          [displayWith]="displayProdtype"
+        >
+          <mat-option
+            *ngFor="let p of filteredProdtypes$ | async"
+            [value]="p"
+          >
+            {{ p.prodtype_Name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- ===== BRAND AUTOCOMPLETE ===== -->
+      <mat-form-field appearance="outline">
+        <mat-label>Brand</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="brandControl"
+          [matAutocomplete]="autoBrand"
+        />
+
+        <mat-autocomplete
+          #autoBrand="matAutocomplete"
+          [displayWith]="displayBrand"
+        >
+          <mat-option
+            *ngFor="let b of filteredBrands$ | async"
+            [value]="b"
+          >
+            {{ b.brand_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <!-- ===== ROW 3 : HSN & UNIT AUTOCOMPLETE ===== -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>HSN</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="hsnControl"
+          [matAutocomplete]="autoHsn"
+        />
+
+        <mat-autocomplete
+          #autoHsn="matAutocomplete"
+          [displayWith]="displayHsn"
+        >
+          <mat-option
+            *ngFor="let h of filteredHsns$ | async"
+            [value]="h"
+          >
+            {{ h.hsnCode }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unit</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="unitControl"
+          [matAutocomplete]="autoUnit"
+        />
+
+        <mat-autocomplete
+          #autoUnit="matAutocomplete"
+          [displayWith]="displayUnit"
+        >
+          <mat-option
+            *ngFor="let u of filteredUnits$ | async"
+            [value]="u"
+          >
+            {{ u.unitName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <!-- ===== ACTION BUTTONS ===== -->
+    <div class="action-row">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="!isEditMode"
+        (click)="submitProduct()"
+      >
+        Submit
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="isEditMode"
+        (click)="updateProduct()"
+      >
+        Update
+      </button>
+
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+    </div>
+
+  </form>
+</div>

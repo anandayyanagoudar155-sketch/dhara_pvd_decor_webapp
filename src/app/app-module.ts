@@ -50,6 +50,9 @@ import { MonthGrid } from './month-grid/month-grid';
 import { UnitGrid } from './unit-grid/unit-grid';
 import { PaytypeGrid } from './paytype-grid/paytype-grid';
 import { TranstypeGrid } from './transtype-grid/transtype-grid';
+import { ProdtypeGrid } from './prodtype-grid/prodtype-grid';
+import { ProductGrid } from './product-grid/product-grid';
+import { EditProduct } from './edit-product/edit-product';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -78,7 +81,10 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     MonthGrid,
     UnitGrid,
     PaytypeGrid,
-    TranstypeGrid
+    TranstypeGrid,
+    ProdtypeGrid,
+    ProductGrid,
+    EditProduct
   ],
   imports: [
    BrowserModule,

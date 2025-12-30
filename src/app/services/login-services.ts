@@ -324,8 +324,8 @@ export interface TransTypeList {
   trans_id: number;
   transtype_name: string;
   transtype_desc: string;
-  created_Date: string;
-  updated_Date: string;
+  created_date: string;
+  updated_date: string;
   created_by: number;
   modified_by: number;
   created_by_name: string;
@@ -346,6 +346,78 @@ export interface DropTransType {
   trans_id: number;
   transtype_name: string;
 }
+
+
+export interface ProdtypeList {
+  prodtype_Id: number;
+  prodtype_Name: string;
+  prodtype_Desc: string;
+  created_date: string;
+  updated_date: string;
+  created_by: number;
+  modified_by: number;
+  created_by_name: string;
+  modified_by_name: string;
+}
+
+export interface SingleProdtype {
+  prodtype_Id: number;
+  prodtype_Name: string;
+  prodtype_Desc: string;
+  created_date: Date | null;
+  updated_date: Date | null;
+  created_by: number;
+  modified_by: number;
+}
+
+export interface DropProdtype {
+  prodtype_Id: number;
+  prodtype_Name: string;
+}
+
+export interface ProductList {
+  product_Id: number;
+  prodtype_Id: number;
+  prodtype_name: string;
+  brand_Id: number;
+  brand_name: string;
+  hsn_Id: number;
+  hsn_name: string;
+  unit_Id: number;
+  unit_name: string;
+  product_name: string;
+  product_desc: string;
+  rate: number;
+  created_Date: string;
+  updated_Date: string;
+  created_by: number;
+  modified_by: number | null;
+  created_by_name: string;
+  modified_by_name: string | null;
+}
+
+
+export interface SingleProduct {
+  product_Id: number;
+  prodtype_id: number;
+  brand_id: number;
+  hsn_id: number;
+  unit_id: number;
+  product_name: string;
+  product_desc: string;
+  rate: number;
+  created_Date: string | null;
+  updated_Date: string | null;
+  created_by: number;
+  modified_by: number | null;
+}
+
+
+export interface DropProduct {
+  product_Id: number;
+  product_name: string;
+}
+
 
 
 @Injectable({
@@ -669,8 +741,8 @@ export class LoginServices {
     ).pipe(
       map(data =>
         data.map(item => ({
-          brand_id: item.brand_id,
-          brand_name: item.brand_name
+          brand_id: item.brand_Id,
+          brand_name: item.brand_Name
         }))
       )
     );
@@ -738,7 +810,7 @@ export class LoginServices {
 
   getHsnDropdown(): Observable<DropHsn[]> {
     return this.http.get<any[]>(
-      `${this.baseUrl}/Colour/dropdown_colour_list`
+      `${this.baseUrl}/Hsn/dropdown_hsn_list`
     ).pipe(
       map(data =>
         data.map(item => ({
@@ -905,8 +977,78 @@ export class LoginServices {
     );
   }
 
+//prodtype
+
+  insertProdtype(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/ProdType/insert_prodtype`, payload);
+  }
 
 
+  updateProdtype(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/ProdType/update_prodtype`,payload);
+  }
 
+  deleteProdtype(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/ProdType/delete_prodtype/${id}`);
+  }
+
+
+  getProdtypeList(): Observable<ProdtypeList[]> {
+    return this.http.get<ProdtypeList[]>(`${this.baseUrl}/ProdType/prodtype_list`);
+  }
+
+
+  getProdtypeById(id: number): Observable<SingleProdtype> {
+    return this.http.get<SingleProdtype>(`${this.baseUrl}/ProdType/prodtype/${id}`);
+  }
+
+
+  getProdtypeDropdown(): Observable<DropProdtype[]> {
+    return this.http.get<DropProdtype[]>(
+      `${this.baseUrl}/ProdType/dropdown_prodtype_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          prodtype_Id: item.prodtype_Id,
+          prodtype_Name: item.prodtype_Name
+        }))
+      )
+    );
+  }
+
+  //productmaster
+
+  insertProduct(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Product/insert_product`,payload);
+  }
+
+  updateProduct(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Product/UpdateProduct`,payload);
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Product/DeleteProduct/${id}`);
+  }
+
+  getProductList(): Observable<ProductList[]> {
+    return this.http.get<ProductList[]>(`${this.baseUrl}/Product/product_list`);
+  }
+
+  getProductById(id: number): Observable<SingleProduct> {
+    return this.http.get<SingleProduct>( `${this.baseUrl}/Product/product/${id}`);
+  }
+
+  getProductDropdown(): Observable<DropProduct[]> {
+    return this.http.get<DropProduct[]>(
+      `${this.baseUrl}/Product/dropdown_product_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          product_Id: item.product_Id,
+          product_name: item.product_name
+        }))
+      )
+    );
+  }
   
 }

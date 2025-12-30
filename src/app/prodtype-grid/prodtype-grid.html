@@ -1,0 +1,55 @@
+<div class="container mt-3">
+
+  <h2>Product Type Master</h2>
+  <hr>
+
+  <!-- AG GRID -->
+  <div class="ag-theme-quartz" style="height: 360px;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="prodTypeList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+
+  <hr>
+
+  <!-- ADD PRODUCT TYPE -->
+  <h2>Add New Product Type</h2>
+  <hr>
+
+  <form [formGroup]="addForm">
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Product Type Name</mat-label>
+          <input matInput formControlName="prodtypeName">
+          <mat-error *ngIf="addForm.get('prodtypeName')?.hasError('required')">
+            Product type name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="prodtypeDesc">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      class="mt-2"
+      (click)="insertProdtype()">
+      Add Product Type
+    </button>
+
+  </form>
+
+</div>

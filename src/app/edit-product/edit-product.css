@@ -1,0 +1,92 @@
+/* ================================
+   MAIN CONTAINER
+================================ */
+.product-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+
+/* ================================
+   HEADER
+================================ */
+.form-header {
+  margin-bottom: 16px;
+}
+
+.form-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+/* ================================
+   FORM ROW LAYOUT
+================================ */
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+/* ================================
+   ANGULAR MATERIAL FORM FIELDS
+================================ */
+mat-form-field {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Input text consistency */
+mat-form-field input {
+  font-size: 14px;
+}
+
+/* Error message spacing */
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ================================
+   AUTOCOMPLETE DROPDOWN
+================================ */
+mat-autocomplete {
+  font-size: 14px;
+}
+
+mat-option {
+  font-size: 14px;
+}
+
+/* ================================
+   ACTION BUTTON ROW
+================================ */
+.action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+/* ================================
+   RESPONSIVE HANDLING
+================================ */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

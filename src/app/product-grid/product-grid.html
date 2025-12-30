@@ -1,0 +1,23 @@
+<div class="container mt-3">
+
+  <div class="header-row">
+    <h2 class="grid-heading">Product Master</h2>
+
+    <button class="btn btn-add" routerLink="/product/add">
+      + Add Product
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="ag-theme-quartz" style="height: 650px; width: 100%;">
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      [rowData]="productList"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+
+</div>
