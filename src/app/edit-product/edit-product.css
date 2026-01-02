@@ -2,7 +2,7 @@
    MAIN CONTAINER
 ================================ */
 .product-container {
-  max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
   padding: 16px;
   background-color: #ffffff;
@@ -18,9 +18,9 @@
 
 .form-header h2 {
   margin: 0;
-  font-size: 22px;
+  color: blue;
+  font-size: large;
   font-weight: 600;
-  color: #1976d2;
 }
 
 /* ================================
@@ -90,3 +90,63 @@ mat-option {
     align-items: stretch;
   }
 }
+
+
+
+/* ================================
+   PRODUCT DETAILS SECTION
+================================ */
+.section-title {
+  margin: 24px 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Financial Year dropdown full width */
+.full-width {
+  width: 100%;
+}
+
+/* ================================
+   AG GRID WRAPPER
+================================ */
+.grid-wrapper {
+  margin-top: 16px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* AG Grid theme fix inside material layouts */
+.ag-theme-alpine {
+  --ag-header-height: 38px;
+  --ag-row-height: 36px;
+  --ag-font-size: 13px;
+}
+
+/* ================================
+   DELETE BUTTON IN GRID
+================================ */
+.btn-delete {
+  background-color: #e53935;
+  border: none;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background-color: #c62828;
+}
+
+/* ================================
+   MOBILE GRID SCROLL
+================================ */
+@media (max-width: 768px) {
+  .grid-wrapper {
+    overflow-x: auto;
+  }
+}
+

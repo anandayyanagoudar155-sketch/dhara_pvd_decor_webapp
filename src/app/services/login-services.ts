@@ -418,6 +418,55 @@ export interface DropProduct {
   product_name: string;
 }
 
+export interface ProductDetail_List {
+  Product_detail_id: number;
+  Product_Id: number;
+  Product_name: string;
+  Opening_stock: number;
+  Purchase: number;
+  Sales: number;
+  Return: number;
+  Current_stock: number;
+  reorder_threshold: number;
+  reorder_desc: string;
+  Created_date: string;
+  Updated_date: string;
+  Fin_year_id: number;
+  Fin_year_name: string;
+  Comp_id: number;
+  Comp_name: string;
+  Created_by: number;
+  Modified_by: number | null;
+  Created_by_name: string;
+  Modified_by_name: string | null;
+}
+
+
+export interface Single_ProductDetail {
+  Product_detail_id: number;
+  Product_Id: number;
+  Opening_stock: number;
+  Purchase: number;
+  Sales: number;
+  Return: number;
+  Current_stock: number;
+  reorder_threshold: number;
+  reorder_desc: string;
+  Created_date: Date | null;
+  Updated_date: Date | null;
+  Fin_year_id: number;
+  Fin_year_name: string;
+  Comp_id: number;
+  Created_by: number;
+  Modified_by: number;
+}
+
+
+export interface Drop_ProductDetail {
+  Product_detail_id: number;
+  Product_Id: number;
+}
+
 
 
 @Injectable({
@@ -1050,5 +1099,40 @@ export class LoginServices {
       )
     );
   }
+
+  //productdetails api
+
+  insertProductDetail(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Product/insert_ProductDetail`, payload);
+  }
+
+
+  updateProductDetail(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Product/Update_ProductDetail`, payload);
+  }
+
+
+  deleteProductDetail(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Product/Delete_ProductDetail/${id}` );
+  }
+
+
+  getProductDetailList(): Observable<ProductDetail_List[]> {
+    return this.http.get<ProductDetail_List[]>(`${this.baseUrl}/Product/productdetail_list`);
+  }
+
+
+  getProductDetailById(id: number): Observable<Single_ProductDetail> {
+    return this.http.get<Single_ProductDetail>(`${this.baseUrl}/Product/productdetail/${id}`);
+  }
+
+
+  // getProductDetailDropdown(): Observable<Drop_ProductDetail[]> {
+  //   return this.http.get<Drop_ProductDetail[]>(
+  //     `${this.baseUrl}/ProductDetail/dropdown_productdetail_list`
+  //   );
+  // }
+
+
   
 }
