@@ -1,0 +1,241 @@
+<form [formGroup]="customerForm" class="customer-container">
+
+  <!-- ================= HEADER ================= -->
+  <div class="form-header">
+    <h2>{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h2>
+  </div>
+
+  <!-- ================= BASIC DETAILS ================= -->
+  <div class="form-row">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Customer Name</mat-label>
+      <input matInput formControlName="Customer_Name" />
+         <mat-error *ngIf="customerForm.get('Customer_Name')?.hasError('required')">
+        Customer Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prefix</mat-label>
+      <input matInput formControlName="Prefix" />
+        <mat-error *ngIf="customerForm.get('Prefix')?.hasError('required')">
+        Prefix is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="Gender">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+        <mat-option value="Other">Other</mat-option>
+      </mat-select>
+        <mat-error *ngIf="customerForm.get('Gender')?.hasError('required')">
+        Gender is required
+        </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <!-- ================= CONTACT ================= -->
+  <div class="form-row">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="Phonenumber" />
+      <mat-error *ngIf="customerForm.get('Phonenumber')?.hasError('required')">
+        Phone Number is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="Email_Id" />
+        <mat-error *ngIf="customerForm.get('Email_Id')?.hasError('required')">
+            Email is required
+        </mat-error>
+        
+        <mat-error *ngIf="!customerForm.get('Email_Id')?.hasError('required') &&
+                            customerForm.get('Email_Id')?.hasError('email')">
+            Enter a valid email address
+        </mat-error>
+    </mat-form-field>
+
+    <!-- CITY AUTOCOMPLETE -->
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <input
+        matInput
+        [matAutocomplete]="autoCity"
+        [formControl]="cityControl"
+      />
+      <mat-autocomplete
+        #autoCity="matAutocomplete"
+        [displayWith]="displayCity"
+      >
+        <mat-option
+          *ngFor="let c of filteredCities$ | async"
+          [value]="c"
+        >
+          {{ c.city_name }}
+        </mat-option>
+      </mat-autocomplete>
+        <mat-error *ngIf="cityControl.hasError('required')">
+        City is required
+        </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <!-- ================= ADDRESS ================= -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Address</mat-label>
+      <textarea matInput rows="2" formControlName="Cust_Address"></textarea>
+            <mat-error *ngIf="customerForm.get('Cust_Address')?.hasError('required')">
+                Address is required
+            </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- ================= DOB & IDs ================= -->
+  <div class="form-row">
+
+    <!-- DATE PICKER -->
+    <mat-form-field appearance="outline">
+      <mat-label>Date of Birth</mat-label>
+      <input
+        matInput
+        [matDatepicker]="dobPicker"
+        formControlName="Dob"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dobPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dobPicker></mat-datepicker>
+
+        <mat-error *ngIf="customerForm.get('Dob')?.hasError('required')">
+            Date of Birth is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Aadhaar Number</mat-label>
+      <input matInput formControlName="Aadhaar_Number" />
+                    <mat-error *ngIf="customerForm.get('Aadhaar_Number')?.hasError('required')">
+                Aadhaar Number is required
+            </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>License Number</mat-label>
+      <input matInput formControlName="License_Number" />
+                    <mat-error *ngIf="customerForm.get('License_Number')?.hasError('required')">
+                License Number is required
+            </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <!-- ================= TAX DETAILS ================= -->
+  <div class="form-row">
+
+    <mat-form-field appearance="outline">
+      <mat-label>PAN Number</mat-label>
+      <input matInput formControlName="Pan_Number" />
+            <mat-error *ngIf="customerForm.get('Pan_Number')?.hasError('required')">
+                Pan Number is required
+            </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>GST Number</mat-label>
+      <input matInput formControlName="Gst_Number" />
+            <mat-error *ngIf="customerForm.get('Gst_Number')?.hasError('required')">
+                Gst Number is required
+            </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <!-- ================= NOTES ================= -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Customer Notes</mat-label>
+      <textarea matInput rows="2" formControlName="Customer_Notes"></textarea>
+    </mat-form-field>
+  </div>
+
+  <!-- ================= FINANCIAL YEAR MULTISELECT ================= -->
+
+    <div class="form-header">
+     <h2>Customer Details</h2>   
+    </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Financial Years</mat-label>
+      <mat-select
+        [formControl]="finYearControl"
+        multiple
+        (selectionChange)="onFinYearChange($event.value)"
+      >
+        <mat-option
+          *ngFor="let fy of finYears"
+          [value]="fy.fin_year_id"
+        >
+          {{ fy.fin_name }}
+        </mat-option>
+      </mat-select>
+        <mat-error *ngIf="finYearControl.hasError('required')">
+         Select at least one Financial Year
+        </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- ================= GRID ================= -->
+  <div class="grid-wrapper">
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      style="width: 100%; height: 300px"
+      [rowData]="customerDetailGrid"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)"
+    >
+    </ag-grid-angular>
+  </div>
+
+  <!-- ================= ACTION BUTTONS ================= -->
+  <div class="button-row">
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="isEditMode ? updateCustomer() : submitCustomer()"
+      [disabled]="customerForm.invalid"
+    >
+      {{ isEditMode ? 'Update Customer' : 'Save Customer' }}
+    </button>
+
+    <button
+      mat-stroked-button
+      color="warn"
+      type="button"
+      (click)="resetForm()"
+    >
+      Reset
+    </button>
+
+    <button
+      mat-stroked-button
+      type="button"
+      routerLink="/customerlist"
+    >
+      Cancel
+    </button>
+  </div>
+
+</form>

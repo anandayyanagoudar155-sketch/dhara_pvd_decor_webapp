@@ -26,6 +26,8 @@ import { TranstypeGrid } from './transtype-grid/transtype-grid';
 import { ProdtypeGrid } from './prodtype-grid/prodtype-grid';
 import { ProductGrid } from './product-grid/product-grid';
 import { EditProduct } from './edit-product/edit-product';
+import { CustomerGrid } from './customer-grid/customer-grid';
+import { EditCustomer } from './edit-customer/edit-customer';
 
 const routes: Routes = [
   {
@@ -63,6 +65,9 @@ const routes: Routes = [
       {path: 'productlist',component:ProductGrid},
       {path: 'product/add', component: EditProduct},
       {path: 'product/edit/:id', component: EditProduct},
+      {path: 'customerlist',component:CustomerGrid},
+      {path: 'customer/add', component: EditCustomer},
+      {path: 'customer/edit/:id', component: EditCustomer},
     ]
   },
   {

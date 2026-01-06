@@ -459,6 +459,7 @@ export interface Single_ProductDetail {
   Comp_id: number;
   Created_by: number;
   Modified_by: number;
+  
 }
 
 
@@ -467,7 +468,98 @@ export interface Drop_ProductDetail {
   Product_Id: number;
 }
 
+export interface Customer_List {
+  Customer_Id: number;
+  Customer_Name: string;
+  Prefix: string;
+  Gender: string;
+  Phonenumber: string;
+  City_Id: number;
+  City_Name: string;
+  Cust_Address: string;
+  Email_Id: string;
+  Dob: string;
+  Aadhaar_Number: string;
+  License_Number: string;
+  Pan_Number: string;
+  Gst_Number: string;
+  Is_Active: boolean;
+  Customer_Notes: string;
+  Created_Date: string;
+  Updated_Date: string;
+  Created_by: number;
+  Modified_by: number | null;
+  Created_by_name: string;
+  Modified_by_name: string | null;
+}
 
+
+
+export interface Single_Customer_List {
+  customer_Id: number;
+  customer_Name: string;
+  prefix: string;
+  gender: string;
+  phonenumber: string;
+  city_Id: number;
+  cust_Address: string;
+  email_Id: string;
+  dob: Date | null;
+  aadhaar_Number: string;
+  license_Number: string;
+  pan_Number: string;
+  gst_Number: string;
+  is_Active: boolean;
+  customer_Notes: string;
+  created_Date: string | null;
+  updated_Date: string | null;
+  created_by: number;
+  modified_by: number | null;
+}
+
+
+export interface Drop_Customer_List {
+  Customer_Id: number;
+  Customer_Name: string;
+}
+
+
+export interface CustDetailList {
+  cust_detail_id: number;
+  customer_name: number;
+  opening_balance: number;
+  invoice_balance: number;
+  outstanding_balance: number;
+  created_Date: string;
+  updated_Date: string;
+  fin_year_id: number;
+  fin_year_name: string;
+  comp_id: number;
+  comp_name: string;
+  created_by: number;
+  modified_by?: number;
+  created_by_name: string;
+  modified_by_name?: string;
+}
+
+export interface SingleCustDetail {
+  cust_detail_id: number;
+  customer_id: number;
+  opening_balance: number;
+  invoice_balance: number;
+  outstanding_balance: number;
+  created_date?: Date;
+  updated_date?: Date;
+  fin_year_id: number;
+  fin_year_name: string;
+  comp_id: number;
+  created_by: number;
+  modified_by: number;
+}
+
+export interface DropCustDetail {
+  cust_detail_id: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -1134,5 +1226,66 @@ export class LoginServices {
   // }
 
 
-  
+  //customer api
+
+  insertCustomer(payload: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/Customer/insert_customer`,payload);
+  }
+
+  updateCustomer(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Customer/UpdatecCustomer`,payload);
+  }
+
+  deleteCustomer(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Customer/DeleteCustomer/${id}`);
+  }
+
+  getCustomerList(): Observable<Customer_List[]> {
+  return this.http.get<Customer_List[]>(`${this.baseUrl}/Customer/customer_list`);
+  }
+
+  getCustomerById(id: number): Observable<Single_Customer_List> {
+    return this.http.get<Single_Customer_List>(`${this.baseUrl}/Customer/customer/${id}`);
+  }
+
+  getCustomerDropdown(): Observable<Drop_Customer_List[]> {
+    return this.http.get<Drop_Customer_List[]>(
+      `${this.baseUrl}/Customer/dropdown_customer_list`
+    ).pipe(
+      map(data =>
+        data.map(item => ({
+          Customer_Id: item.Customer_Id,
+          Customer_Name: item.Customer_Name
+        }))
+      )
+    );
+  }
+
+  //customer details api
+
+    insertCustDetail(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Customer/insert_custdetail`, payload);
+  }
+
+  updateCustDetail(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Customer/update_custdetail`, payload);
+  }
+
+  deleteCustDetail(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Customer/delete_custdetail/${id}`);
+  }
+
+  getCustDetailList(): Observable<CustDetailList[]> {
+    return this.http.get<CustDetailList[]>(`${this.baseUrl}/Customer/custdetail_list`);
+  }
+
+  getCustDetailById(id: number): Observable<SingleCustDetail[]> {
+    return this.http.get<SingleCustDetail[]>(`${this.baseUrl}/Customer/custdetail/${id}`);
+  }
+
+  // getDropCustDetailList(): Observable<DropCustDetail[]> {
+  //   return this.http.get<DropCustDetail[]>(`${this.baseUrl}/dropdown_custdetail_list`);
+  // }
+
+
 }

@@ -40,10 +40,10 @@ export class EditProduct  implements OnInit {
 
   /* ================= AUTOCOMPLETE CONTROLS ================= */
 
-  prodtypeControl = new FormControl<DropProdtype | null>(null);
-  brandControl = new FormControl<DropBrand | null>(null);
-  hsnControl = new FormControl<DropHsn | null>(null);
-  unitControl = new FormControl<DropUnit | null>(null);
+  prodtypeControl = new FormControl<DropProdtype | null>(null,Validators.required);
+  brandControl = new FormControl<DropBrand | null>(null,Validators.required);
+  hsnControl = new FormControl<DropHsn | null>(null,Validators.required);
+  unitControl = new FormControl<DropUnit | null>(null,Validators.required);
 
   prodtypes: DropProdtype[] = [];
   brands: DropBrand[] = [];
@@ -57,7 +57,7 @@ export class EditProduct  implements OnInit {
 
   /* ================= PRODUCT DETAILS ================= */
 
-  finYearControl = new FormControl<number[]>([]);
+  finYearControl = new FormControl<number[]>([],Validators.required);
   finYears: FinancialYear[] = [];
 
   productDetailGrid: any[] = [];
@@ -144,9 +144,9 @@ export class EditProduct  implements OnInit {
 
   initializeForm() {
     this.productForm = this.fb.group({
-      product_name: ['', Validators.required],
-      product_desc: ['',  [Validators.required,NoSpecialCharValidator.validate]],
-      rate: [0,[Validators.required,TwoDecimalValidator.nonNegative]]
+      product_name: ['', [Validators.required,NoSpecialCharValidator.validate]],
+      product_desc: ['none', [NoSpecialCharValidator.validate]],
+      rate: [0, [Validators.required,TwoDecimalValidator.nonNegative]]
     });
   }
 

@@ -53,6 +53,8 @@ import { TranstypeGrid } from './transtype-grid/transtype-grid';
 import { ProdtypeGrid } from './prodtype-grid/prodtype-grid';
 import { ProductGrid } from './product-grid/product-grid';
 import { EditProduct } from './edit-product/edit-product';
+import { CustomerGrid } from './customer-grid/customer-grid';
+import { EditCustomer } from './edit-customer/edit-customer';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -84,7 +86,9 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     TranstypeGrid,
     ProdtypeGrid,
     ProductGrid,
-    EditProduct
+    EditProduct,
+    CustomerGrid,
+    EditCustomer
   ],
   imports: [
    BrowserModule,
