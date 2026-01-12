@@ -7,7 +7,9 @@ export class NoSpecialCharValidator {
       return true;
     }
 
-    const regex = /^[a-zA-Z0-9 ]*$/;
+    // < > { } [ ] | \ ^ ~ ` = " @ $ % *--not allowed
+
+    const regex = /^[a-zA-Z0-9 ,.\-_:;/#()&+'"]*$/;
     return regex.test(value);
   }
 

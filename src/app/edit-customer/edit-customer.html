@@ -10,7 +10,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Customer Name</mat-label>
-      <input matInput formControlName="Customer_Name" />
+      <input matInput formControlName="Customer_Name" appNoSpecialChar/>
          <mat-error *ngIf="customerForm.get('Customer_Name')?.hasError('required')">
         Customer Name is required
       </mat-error>
@@ -18,7 +18,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Prefix</mat-label>
-      <input matInput formControlName="Prefix" />
+      <input matInput formControlName="Prefix" appNoSpecialChar/>
         <mat-error *ngIf="customerForm.get('Prefix')?.hasError('required')">
         Prefix is required
         </mat-error>
@@ -51,7 +51,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="Email_Id" />
+      <input matInput formControlName="Email_Id" appNoSpecialChar/>
         <mat-error *ngIf="customerForm.get('Email_Id')?.hasError('required')">
             Email is required
         </mat-error>
@@ -69,6 +69,7 @@
         matInput
         [matAutocomplete]="autoCity"
         [formControl]="cityControl"
+        appNoSpecialChar
       />
       <mat-autocomplete
         #autoCity="matAutocomplete"
@@ -92,9 +93,12 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Address</mat-label>
-      <textarea matInput rows="2" formControlName="Cust_Address"></textarea>
+      <textarea matInput rows="2" formControlName="Cust_Address" appNoSpecialChar></textarea>
             <mat-error *ngIf="customerForm.get('Cust_Address')?.hasError('required')">
                 Address is required
+            </mat-error>
+            <mat-error *ngIf="customerForm.get('Cust_Address')?.hasError('noSpecialChars')">
+                Invalid characters are not allowed
             </mat-error>
     </mat-form-field>
   </div>
@@ -123,7 +127,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Aadhaar Number</mat-label>
-      <input matInput formControlName="Aadhaar_Number" />
+      <input matInput formControlName="Aadhaar_Number" appNoSpecialChar/>
                     <mat-error *ngIf="customerForm.get('Aadhaar_Number')?.hasError('required')">
                 Aadhaar Number is required
             </mat-error>
@@ -131,7 +135,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>License Number</mat-label>
-      <input matInput formControlName="License_Number" />
+      <input matInput formControlName="License_Number" appNoSpecialChar/>
                     <mat-error *ngIf="customerForm.get('License_Number')?.hasError('required')">
                 License Number is required
             </mat-error>
@@ -144,7 +148,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>PAN Number</mat-label>
-      <input matInput formControlName="Pan_Number" />
+      <input matInput formControlName="Pan_Number" appNoSpecialChar/>
             <mat-error *ngIf="customerForm.get('Pan_Number')?.hasError('required')">
                 Pan Number is required
             </mat-error>
@@ -152,7 +156,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>GST Number</mat-label>
-      <input matInput formControlName="Gst_Number" />
+      <input matInput formControlName="Gst_Number"  appNoSpecialChar/>
             <mat-error *ngIf="customerForm.get('Gst_Number')?.hasError('required')">
                 Gst Number is required
             </mat-error>
@@ -164,7 +168,7 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Customer Notes</mat-label>
-      <textarea matInput rows="2" formControlName="Customer_Notes"></textarea>
+      <textarea matInput rows="2" formControlName="Customer_Notes" appNoSpecialChar></textarea>
     </mat-form-field>
   </div>
 

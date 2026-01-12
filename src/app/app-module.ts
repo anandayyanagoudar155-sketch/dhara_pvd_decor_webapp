@@ -1,6 +1,10 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth-interceptor';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { MainLayout } from './layouts/main-layout/main-layout';
@@ -25,7 +29,6 @@ import {AsyncPipe} from '@angular/common';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';  
 import { MatNativeDateModule } from '@angular/material/core';
-import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import { MatTableModule } from '@angular/material/table';
@@ -55,6 +58,9 @@ import { ProductGrid } from './product-grid/product-grid';
 import { EditProduct } from './edit-product/edit-product';
 import { CustomerGrid } from './customer-grid/customer-grid';
 import { EditCustomer } from './edit-customer/edit-customer';
+import { NoSpecialChar } from './directives/no-special-char';
+import { TwoDecimalInput } from './directives/two-decimal-input';
+import { TwoDecimalNegativeInput } from './directives/two-decimal-negative-input';
 
 ModuleRegistry.registerModules([AllCommunityModule]); 
 
@@ -88,7 +94,10 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     ProductGrid,
     EditProduct,
     CustomerGrid,
-    EditCustomer
+    EditCustomer,
+    NoSpecialChar,
+    TwoDecimalInput,
+    TwoDecimalNegativeInput
   ],
   imports: [
    BrowserModule,
@@ -101,7 +110,6 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     MatCardModule,
     MatIconModule,
     MatToolbarModule,
-    BrowserModule,
     BrowserAnimationsModule, 
     MatSidenavModule,
     MatListModule,
@@ -118,11 +126,14 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     MatStepperModule,
     MatCheckboxModule
   ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch())
-  ],
+providers: [
+  provideBrowserGlobalErrorListeners(),
+  provideClientHydration(withEventReplay()),
+  provideHttpClient(
+    withFetch(),
+    withInterceptors([authInterceptor])
+  )
+],
   bootstrap: [App]
 })
 export class AppModule { }

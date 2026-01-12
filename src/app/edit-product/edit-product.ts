@@ -146,7 +146,7 @@ export class EditProduct  implements OnInit {
     this.productForm = this.fb.group({
       product_name: ['', [Validators.required,NoSpecialCharValidator.validate]],
       product_desc: ['none', [NoSpecialCharValidator.validate]],
-      rate: [0, [Validators.required,TwoDecimalValidator.nonNegative]]
+      rate: [0, [Validators.required]]
     });
   }
 

@@ -32,7 +32,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Rate</mat-label>
-        <input matInput type="number" formControlName="rate" />
+        <input matInput type="number" formControlName="rate" appTwoDecimalInput/>
             <mat-error *ngIf="productForm.get('rate')?.hasError('required')">
                 Rate is required
             </mat-error>

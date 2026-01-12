@@ -16,7 +16,8 @@ import {
 import { LoginServices } from '../services/login-services';
 import { GridApi, GridReadyEvent, ColDef } from 'ag-grid-community';
 import { TwoDecimalValidator } from '../validators/two-decimal.validator';
-import { NoSpecialCharValidator } from '../validators/no-special-char.validator';
+// import { NoSpecialCharValidator } from '../validators/no-special-char.validator';
+import { NoSpecialChar } from '../directives/no-special-char';
 
 @Component({
   selector: 'app-edit-customer',
@@ -100,8 +101,8 @@ export class EditCustomer implements OnInit {
 
   initForm() {
     this.customerForm = this.fb.group({
-      Customer_Name: ['', [Validators.required, NoSpecialCharValidator.validate]],
-      Prefix: ['',[Validators.required, NoSpecialCharValidator.validate]],
+      Customer_Name: ['', [Validators.required]],
+      Prefix: ['',[Validators.required]],
       Gender: ['',Validators.required],
       Phonenumber: ['', Validators.required],
       Cust_Address: ['',Validators.required],
