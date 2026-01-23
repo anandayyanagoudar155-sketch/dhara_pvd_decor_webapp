@@ -568,6 +568,7 @@ export class LoginServices {
 
   
  private baseUrl = 'https://localhost:7046/api';
+// private baseUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
@@ -626,6 +627,10 @@ export class LoginServices {
 
   saveLogin(payload: any): Observable<any> {
       return this.http.post(`${this.baseUrl}/Auth/savelogin`, payload);
+  }
+
+  logout(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Auth/logout`, {});
   }
 
   registerUser(payload: any): Observable<any> {

@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Session } from '../../services/session';
 import { Router } from '@angular/router';
+import { LoginServices } from '../../services/login-services';
 
 import { stringify } from 'querystring';
 import { json } from 'stream/consumers';
@@ -24,12 +25,32 @@ export class MainLayout implements OnInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private sessionservice: Session
+    private loginservice: LoginServices,
+    private router: Router
   ) {}
 
+  // Logout() {
+  //   this.sessionservice.logout();
+  // }
+
   Logout() {
-    this.sessionservice.logout();
+    this.loginservice.logout().subscribe({
+      next: () => {
+        this.clearSessionAndRedirect();
+      },
+      error: (err) => {
+        console.error('Logout error:', err);
+        // Even if token is invalid/expired, force logout
+        this.clearSessionAndRedirect();
+      }
+    });
   }
+
+  private clearSessionAndRedirect() {
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+   
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

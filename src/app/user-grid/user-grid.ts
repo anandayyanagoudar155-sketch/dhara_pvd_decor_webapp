@@ -85,7 +85,7 @@ export class UserGrid implements OnInit {
   }
 
   loadUsers() {
-    this.http.get<User_List[]>('https://localhost:7046/api/User/user_list')
+    this.http.get<User_List[]>('http://localhost:8080/api/User/user_list')
       .subscribe({
         next: (res) => {
           console.log("API RESPONSE:", res); 
@@ -105,7 +105,7 @@ export class UserGrid implements OnInit {
   }
 
   prepareForDelete(rowData: User_List) {
-    this.http.delete(`https://localhost:7046/api/User/delete_user/${rowData.user_id}`)
+    this.http.delete(`http://localhost:8080/api/User/delete_user/${rowData.user_id}`)
       .subscribe({
         next: () => {
           alert('Deleted user with ID: ' + rowData.user_id);

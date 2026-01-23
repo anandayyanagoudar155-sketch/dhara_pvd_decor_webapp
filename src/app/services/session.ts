@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginServices } from './login-services';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class Session {
 
    private timeout: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginservice : LoginServices ) {}
 
   startSessionTimer() {
     // Clear old timer if exists
@@ -19,7 +20,7 @@ export class Session {
     // Set timeout (30 mins = 1800000 ms)
     this.timeout = setTimeout(() => {
       this.logout();
-    }, 30 * 60 * 1000);
+    }, 10 * 60 * 1000);
   }
 
   resetSessionTimer() {
@@ -27,8 +28,21 @@ export class Session {
   }
 
   logout() {
+    this.loginservice.logout().subscribe({
+      next: () => {
+        alert('Session expired. Please login again.');
+        this.clearSessionAndRedirect();
+      },
+      error: (err) => {
+        console.error('Logout error:', err);
+        // Even if token is invalid/expired, force logout
+        this.clearSessionAndRedirect();
+      }
+    });
+  }
+
+  private clearSessionAndRedirect() {
     sessionStorage.clear();
-    alert('Session expired. Please login again.');
     this.router.navigate(['/login']);
   }
   

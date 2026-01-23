@@ -62,7 +62,7 @@ export class EditCompany implements OnInit {
       pan_number: ['',Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)],
       contperson_name: [''],
       contact_email: ['', Validators.email],
-      contact_phone: ['',Validators.pattern(/^[0-9]{15}$/)],
+      contact_phone: ['',Validators.pattern(/^[0-9]{10}$/)],
       address_line1: [''],
       address_line2: [''],
       pincode: ['', Validators.pattern(/^[1-9][0-9]{5}$/)],
