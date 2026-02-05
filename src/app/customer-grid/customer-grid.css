@@ -1,7 +1,7 @@
 .header-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 8px;
 }
 
@@ -10,6 +10,12 @@
   color: blue;
   font-size: large;
   font-weight: 600;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
 }
 
 .btn {

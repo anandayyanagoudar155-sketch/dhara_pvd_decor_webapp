@@ -88,7 +88,7 @@ export interface CompanyList {
   is_active: boolean;
   created_date: string;
   updated_date: string;
-  logo_path: string;
+  // logo_path: string;
   created_by: number;
   modified_by?: number;
   created_by_name: string;
@@ -819,6 +819,10 @@ export class LoginServices {
 
   deleteCompany(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/Company/Deletecompany/${id}`);
+  }
+
+  getCompanyLogo(compId: number) {
+    return this.http.get<any>(`${this.baseUrl}/Company/logo/${compId}`);
   }
 
 

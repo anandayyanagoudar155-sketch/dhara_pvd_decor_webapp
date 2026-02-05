@@ -133,7 +133,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     if (userObjStr) {
       try {
         const userObj = JSON.parse(userObjStr);
-        token = userObj?.token?.result ?? null;
+        // token = userObj?.token?.result ?? null;
+        token = userObj?.token ?? null;
       } catch (err) {
         console.error('Error parsing userobj:', err);
       }

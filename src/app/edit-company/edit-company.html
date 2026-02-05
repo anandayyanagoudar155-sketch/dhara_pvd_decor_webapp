@@ -140,12 +140,43 @@
       </mat-form-field>
     </div>
 
-    <!-- ROW 6 -->
+    <!-- ROW 6 : Company Logo Upload -->
     <div class="form-row">
-      <mat-form-field appearance="outline">
-        <mat-label>Logo Path</mat-label>
-        <input matInput formControlName="logo_path" />
+      <mat-form-field appearance="outline" class="logo-upload-field">
+        <mat-label>Company Logo</mat-label>
+
+        <!-- Display selected file name -->
+        <input
+          matInput
+          placeholder="Choose logo"
+          [value]="logoFile?.name || ''"
+          readonly
+        />
+
+        <!-- Upload icon button -->
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="fileInput.click()"
+        >
+          <mat-icon>upload</mat-icon>
+        </button>
+
+        <!-- Hidden File Input -->
+        <input
+          hidden
+          #fileInput
+          type="file"
+          accept="image/*"
+          (change)="onLogoSelect($event)"
+        />
       </mat-form-field>
+    </div>
+
+    <!-- Logo Preview (Optional) -->
+    <div *ngIf="logoPreview" class="logo-preview">
+      <img [src]="logoPreview" alt="Logo Preview" />
     </div>
 
     <!-- ===== ACTION BUTTONS ===== -->

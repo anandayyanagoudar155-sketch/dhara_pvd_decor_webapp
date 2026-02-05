@@ -1,12 +1,47 @@
 <div class="container mt-3">
 
-  <div class="header-row">
+  <!-- <div class="header-row">
     <h2 class="grid-heading">Customer Master</h2>
 
     <button class="btn btn-add" routerLink="/customer/add">
       + Add Customer
     </button>
+    <button class="btn btn-secondary" (click)="exportToPdf()">
+      Export PDF
+    </button>
+  </div> -->
+
+  <div class="header-row">
+  <h2 class="grid-heading">Customer Master</h2>
+
+  <div class="header-actions">
+    <button class="btn btn-add" routerLink="/customer/add">
+      + Add Customer
+    </button>
+    <button class="btn btn-secondary" (click)="exportToPdf()">
+      Export PDF
+    </button>
+    <button class="btn btn-secondary" (click)="exportToExcel()">
+      Export Excel
+    </button>
+    <button class="btn btn-secondary" (click)="exportToCsv()">
+    Export CSV
+  </button>
+
+  <input
+    type="file"
+    accept=".xlsx,.xls"
+    (change)="importFromExcel($event)"
+    hidden
+    #excelInput
+  />
+
+  <button class="btn btn-secondary" (click)="excelInput.click()">
+    Import Excel
+  </button>
+
   </div>
+</div>
 
   <hr />
 

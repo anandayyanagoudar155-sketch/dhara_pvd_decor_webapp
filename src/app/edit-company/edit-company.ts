@@ -3,6 +3,7 @@ import {FormBuilder,FormGroup,Validators,FormControl} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, startWith, map } from 'rxjs';
 import {LoginServices,SingleCompany} from '../services/login-services';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-edit-company',
@@ -19,6 +20,10 @@ export class EditCompany implements OnInit {
 
   createdBy!: any;
   createdDate!: any;
+
+  logoBase64: string = '';
+  logoFile?: File;
+  logoPreview: string | ArrayBuffer | null = null;
 
   cityControl = new FormControl<any | null>(null);
   cities: any[] = [];
@@ -130,15 +135,37 @@ export class EditCompany implements OnInit {
           contact_phone: res.contact_phone,
           address_line1: res.address_line1,
           address_line2: res.address_line2,
-          pincode: res.pincode,
-          logo_path: res.logo_path
+          pincode: res.pincode
+          // logo_path: res.logo_path
         });
+
+      if (res.logo_path) {
+        this.logoPreview = "data:image/jpeg;base64," + res.logo_path;
+      }
+
+      this.logoBase64 = res.logo_path;
 
       this.loadCities(0, res.city_id);
       },
       error: err => console.error('Load company error', err)
     });
   }
+
+ onLogoSelect(event: any) {
+  this.logoFile = event.target.files[0];
+
+  if (this.logoFile) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.logoPreview = reader.result;
+
+      this.logoBase64 = (reader.result as string).split(',')[1];
+    };
+
+    reader.readAsDataURL(this.logoFile);
+  }
+}
 
   submitCompany() {
     if (this.companyForm.invalid || !this.cityControl.value) {
@@ -151,11 +178,43 @@ export class EditCompany implements OnInit {
     const payload = {
       ...this.companyForm.value,
       city_id: this.cityControl.value.city_id,
+      logo_path : this.logoBase64,
       created_by: user.user_id,
       created_date: new Date(),
       modified_by: user.user_id,
       updated_date: new Date()
     };
+
+      // const payload = new FormData();
+
+      // payload.append("comp_code", this.companyForm.value.comp_code);
+      // payload.append("comp_name", this.companyForm.value.comp_name);
+      // payload.append("comp_short_name", this.companyForm.value.comp_short_name);
+      // payload.append("comp_type", this.companyForm.value.comp_type);
+      // payload.append("comp_desc", this.companyForm.value.comp_desc);
+
+      // payload.append("cin_number", this.companyForm.value.cin_number);
+      // payload.append("gst_number", this.companyForm.value.gst_number);
+      // payload.append("pan_number", this.companyForm.value.pan_number);
+
+      // payload.append("contperson_name", this.companyForm.value.contperson_name);
+      // payload.append("contact_email", this.companyForm.value.contact_email);
+      // payload.append("contact_phone", this.companyForm.value.contact_phone);
+
+      // payload.append("address_line1", this.companyForm.value.address_line1);
+      // payload.append("address_line2", this.companyForm.value.address_line2);
+      // payload.append("pincode", this.companyForm.value.pincode);
+
+      // payload.append("city_id", this.cityControl.value.city_id);
+
+      // if (this.logoFile) {
+      //   payload.append("Logo_File", this.logoFile);
+      // }
+
+      // payload.append("created_by", user.user_id);
+      // payload.append("created_date", new Date().toISOString());
+      // payload.append("modified_by" ,user.user_id);
+      // payload.append("updated_date", new Date().toISOString());
 
     this.svc.insertCompany(payload).subscribe({
       next: () => {
@@ -185,6 +244,7 @@ export class EditCompany implements OnInit {
       comp_id: this.companyId,
       ...this.companyForm.value,
       city_id: this.cityControl.value.city_id,
+      logo_path : this.logoBase64,
       created_by: this.createdBy,
       created_date: this.createdDate,
       modified_by: user.user_id,

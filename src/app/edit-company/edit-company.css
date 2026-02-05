@@ -46,6 +46,24 @@ button {
   min-width: 120px;
 }
 
+/* Logo Upload Field Full Width */
+.logo-upload-field {
+  width: 100%;
+  grid-column: span 3;
+}
+
+/* Logo Preview Styling */
+.logo-preview {
+  margin-top: 10px;
+}
+
+.logo-preview img {
+  max-height: 90px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 6px;
+}
+
 @media (max-width: 900px) {
   .form-row {
     grid-template-columns: repeat(2, 1fr);

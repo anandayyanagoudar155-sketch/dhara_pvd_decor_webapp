@@ -83,7 +83,7 @@ export class EditUser implements OnInit {
     this.userForm = this.fb.group({
       User_id: [''],
       User_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-      User_password: ['', [Validators.required, Validators.minLength(4)]],
+      User_password: [''],
       User_role: ['', Validators.required],
       Is_login: [false]
     });
@@ -235,7 +235,9 @@ export class EditUser implements OnInit {
     this.loginServices.updateUser(payload).subscribe({
       next: (res) => {
         alert('User updated successfully!');
-        this.router.navigate(['/usergrid']);
+        //this.router.navigate(['/usergrid']);
+        sessionStorage.removeItem('userobj'); // or sessionStorage.clear();
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         alert(err.error?.errorMessage || 'Failed to update user.');
